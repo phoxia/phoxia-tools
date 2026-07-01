@@ -17,8 +17,8 @@ const ptBR: LocaleShape = {
 	seo: {
 		homeTitle: 'Phoxia Tools • Ferramentas para devs que ficam no seu browser',
 		homeDescription: 'Ferramentas gratuitas para devs que rodam direto no seu navegador. Formatador JSON, encode/decode Base64, inspetor JWT, testador de regex, gerador de hash, cron builder e mais. Nenhum dado enviado a servidores.',
-		privacyDescription: 'Como o phoxia tools coleta, usa e protege seus dados. Política de privacidade para analytics e anúncios.',
-		termsDescription: 'Termos de uso do phoxia tools: uso aceitável, propriedade intelectual, isenções e limitações de responsabilidade.',
+		privacyDescription: 'Como o Phoxia Tools coleta, usa e protege seus dados. Política de privacidade para analytics e anúncios.',
+		termsDescription: 'Termos de uso do Phoxia Tools: uso aceitável, propriedade intelectual, isenções e limitações de responsabilidade.',
 		siteName: 'Phoxia Tools'
 	},
 	aria: {

@@ -10,9 +10,9 @@
 	const enSections: Section[] = [
 		{
 			id: 'about',
-			title: '1. About phoxia tools',
+			title: '1. About Phoxia Tools',
 			content:
-				'phoxia tools (tools.phoxia.org) is a free developer toolsite operated by Phoxia (Lucas Christian). ' +
+				'Phoxia Tools (tools.phoxia.org) is a free developer toolsite operated by Phoxia (Lucas Christian). ' +
 				'It provides client-side utilities for developers: JSON formatting, Base64 encoding, UUID generation, ' +
 				'JWT inspection, CPF/CNPJ generation (for testing), and more.\n\n' +
 				'All tools run entirely in your browser. No user accounts or subscriptions are required. ' +
@@ -22,13 +22,13 @@
 			id: 'acceptable-use',
 			title: '2. Acceptable use',
 			content:
-				'You may use phoxia tools for any lawful purpose. You may not:\n\n' +
+				'You may use Phoxia Tools for any lawful purpose. You may not:\n\n' +
 				'Use CPF or CNPJ generators to create fraudulent documents or impersonate real individuals or companies. ' +
 				'These tools are strictly for software testing and development purposes.\n\n' +
-				'Attempt to gain unauthorized access to any server or system associated with phoxia tools.\n' +
+				'Attempt to gain unauthorized access to any server or system associated with Phoxia Tools.\n' +
 				'Interfere with the website\'s availability (e.g., denial-of-service attacks).\n' +
 				'Use automated tools to scrape the site in ways that degrade performance for other users.\n' +
-				'Use phoxia tools to distribute malware, spam, or illegal content.'
+				'Use Phoxia Tools to distribute malware, spam, or illegal content.'
 		},
 		{
 			id: 'no-warranty',
@@ -43,7 +43,7 @@
 			id: 'intellectual-property',
 			title: '4. Intellectual property',
 			content:
-				'Source code of phoxia tools is licensed under the GNU Affero General Public License v3.0 (AGPLv3). ' +
+				'Source code of Phoxia Tools is licensed under the GNU Affero General Public License v3.0 (AGPLv3). ' +
 				'You may use, study, modify, and distribute it under the terms of that license. ' +
 				'The full license text is available in our GitHub repository.\n\n' +
 				'The Phoxia name, wordmark, and logo are part of Phoxia\'s project identity. ' +
@@ -53,7 +53,7 @@
 			id: 'third-party',
 			title: '5. Third-party services',
 			content:
-				'phoxia tools integrates the following third-party services (only when you consent to cookies):\n\n' +
+				'Phoxia Tools integrates the following third-party services (only when you consent to cookies):\n\n' +
 				'Google Analytics 4: usage analytics. See policies.google.com/privacy\n' +
 				'Google AdSense: advertising. See policies.google.com/technologies/ads\n\n' +
 				'Phoxia is not responsible for the practices of these services. ' +
@@ -65,7 +65,7 @@
 			content:
 				'To the fullest extent permitted by applicable law, Phoxia and its contributors shall not be liable ' +
 				'for any indirect, incidental, special, consequential, or punitive damages arising from your use of ' +
-				'or inability to use phoxia tools, even if advised of the possibility of such damages.\n\n' +
+				'or inability to use Phoxia Tools, even if advised of the possibility of such damages.\n\n' +
 				'This limitation applies regardless of the theory of liability: contract, tort, negligence, ' +
 				'strict liability, or otherwise.'
 		},
@@ -84,7 +84,7 @@
 			content:
 				'We may update these terms at any time. Material changes will be announced in our public GitHub repository ' +
 				'(github.com/phoxia-org/phoxia-tools) at least 14 days before taking effect.\n\n' +
-				'Continued use of phoxia tools after changes take effect constitutes acceptance of the revised terms.'
+				'Continued use of Phoxia Tools after changes take effect constitutes acceptance of the revised terms.'
 		},
 		{
 			id: 'contact',
@@ -99,9 +99,9 @@
 	const ptSections: Section[] = [
 		{
 			id: 'about',
-			title: '1. Sobre o phoxia tools',
+			title: '1. Sobre o Phoxia Tools',
 			content:
-				'O phoxia tools (tools.phoxia.org) é um site gratuito de ferramentas para desenvolvedores, operado pela Phoxia (Lucas Christian). ' +
+				'O Phoxia Tools (tools.phoxia.org) é um site gratuito de ferramentas para desenvolvedores, operado pela Phoxia (Lucas Christian). ' +
 				'Oferece utilitários client-side para devs: formatação de JSON, encoding Base64, geração de UUID, ' +
 				'inspeção de JWT, geração de CPF/CNPJ (para testes), entre outros.\n\n' +
 				'Todas as ferramentas rodam inteiramente no seu browser. Nenhuma conta de usuário ou assinatura é necessária. ' +
@@ -111,13 +111,13 @@
 			id: 'acceptable-use',
 			title: '2. Uso aceitável',
 			content:
-				'Você pode usar o phoxia tools para qualquer finalidade lícita. Você não pode:\n\n' +
+				'Você pode usar o Phoxia Tools para qualquer finalidade lícita. Você não pode:\n\n' +
 				'Usar os geradores de CPF ou CNPJ para criar documentos fraudulentos ou se passar por pessoas físicas ou jurídicas reais. ' +
 				'Essas ferramentas são estritamente para fins de teste e desenvolvimento de software.\n\n' +
-				'Tentar obter acesso não autorizado a qualquer servidor ou sistema associado ao phoxia tools.\n' +
+				'Tentar obter acesso não autorizado a qualquer servidor ou sistema associado ao Phoxia Tools.\n' +
 				'Interferir na disponibilidade do site (ex.: ataques de negação de serviço).\n' +
 				'Usar ferramentas automatizadas para raspar o site de forma que degrade a performance para outros usuários.\n' +
-				'Usar o phoxia tools para distribuir malware, spam ou conteúdo ilegal.'
+				'Usar o Phoxia Tools para distribuir malware, spam ou conteúdo ilegal.'
 		},
 		{
 			id: 'no-warranty',
@@ -132,7 +132,7 @@
 			id: 'intellectual-property',
 			title: '4. Propriedade intelectual',
 			content:
-				'O código-fonte do phoxia tools é licenciado sob a GNU Affero General Public License v3.0 (AGPLv3). ' +
+				'O código-fonte do Phoxia Tools é licenciado sob a GNU Affero General Public License v3.0 (AGPLv3). ' +
 				'Você pode usar, estudar, modificar e distribuí-lo sob os termos dessa licença. ' +
 				'O texto completo da licença está disponível em nosso repositório no GitHub.\n\n' +
 				'O nome Phoxia, logotipo e identidade visual são de propriedade da Phoxia. ' +
@@ -142,7 +142,7 @@
 			id: 'third-party',
 			title: '5. Serviços de terceiros',
 			content:
-				'O phoxia tools integra os seguintes serviços de terceiros (somente com seu consentimento):\n\n' +
+				'O Phoxia Tools integra os seguintes serviços de terceiros (somente com seu consentimento):\n\n' +
 				'Google Analytics 4: analytics de uso. Veja policies.google.com/privacy\n' +
 				'Google AdSense: publicidade. Veja policies.google.com/technologies/ads\n\n' +
 				'A Phoxia não se responsabiliza pelas práticas desses serviços. ' +
@@ -154,7 +154,7 @@
 			content:
 				'Na máxima extensão permitida pela lei aplicável, a Phoxia e seus colaboradores não serão responsáveis ' +
 				'por quaisquer danos indiretos, incidentais, especiais, consequenciais ou punitivos decorrentes do uso ou ' +
-				'da impossibilidade de uso do phoxia tools, mesmo que tenham sido avisados da possibilidade de tais danos.\n\n' +
+				'da impossibilidade de uso do Phoxia Tools, mesmo que tenham sido avisados da possibilidade de tais danos.\n\n' +
 				'Essa limitação se aplica independentemente da teoria de responsabilidade: contrato, ato ilícito, ' +
 				'negligência, responsabilidade objetiva ou outra.'
 		},
@@ -173,7 +173,7 @@
 			content:
 				'Podemos atualizar estes termos a qualquer momento. Mudanças relevantes serão anunciadas em nosso repositório público no GitHub ' +
 				'(github.com/phoxia-org/phoxia-tools) pelo menos 14 dias antes de entrarem em vigor.\n\n' +
-				'O uso contínuo do phoxia tools após as mudanças entrarem em vigor constitui aceitação dos termos revisados.'
+				'O uso contínuo do Phoxia Tools após as mudanças entrarem em vigor constitui aceitação dos termos revisados.'
 		},
 		{
 			id: 'contact',

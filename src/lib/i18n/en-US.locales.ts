@@ -17,8 +17,8 @@ const en: LocaleShape = {
 	seo: {
 		homeTitle: 'Phoxia Tools • Developer tools that stay in your browser',
 		homeDescription: 'Free developer tools that run entirely in your browser. JSON formatter, Base64 encode/decode, JWT inspector, regex tester, hash generator, cron builder, and more. No data sent to any server.',
-		privacyDescription: 'How phoxia tools collects, uses, and protects your data. Analytics and advertising privacy policy.',
-		termsDescription: 'Terms of use for phoxia tools: acceptable use, intellectual property, disclaimers, and liability limitations.',
+		privacyDescription: 'How Phoxia Tools collects, uses, and protects your data. Analytics and advertising privacy policy.',
+		termsDescription: 'Terms of use for Phoxia Tools: acceptable use, intellectual property, disclaimers, and liability limitations.',
 		siteName: 'Phoxia Tools'
 	},
 	aria: {
