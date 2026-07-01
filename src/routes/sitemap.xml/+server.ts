@@ -28,6 +28,10 @@ function fakerSeoUrls(): string[] {
 	return urls;
 }
 
+function escapeXml(url: string): string {
+	return url.replace(/&/g, '&amp;');
+}
+
 export function GET() {
 	const staticRoutes = [BASE, `${BASE}/privacy`, `${BASE}/terms`];
 	const toolRoutes = tools.map((t) => `${BASE}${t.route}`);
@@ -36,7 +40,7 @@ export function GET() {
 
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((url) => `  <url><loc>${url}</loc><lastmod>${LASTMOD}</lastmod></url>`).join('\n')}
+${urls.map((url) => `  <url><loc>${escapeXml(url)}</loc><lastmod>${LASTMOD}</lastmod></url>`).join('\n')}
 </urlset>`;
 
 	return new Response(xml, {
