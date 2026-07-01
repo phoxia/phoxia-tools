@@ -1,0 +1,43 @@
+import type { CountryData } from '../types';
+
+const us: CountryData = {
+	id: 'us', flag: '🇺🇸',
+	firstNames: [
+		'James','Mary','John','Patricia','Robert','Jennifer','Michael','Linda','David','Elizabeth',
+		'William','Barbara','Richard','Susan','Joseph','Jessica','Thomas','Sarah','Christopher','Karen',
+		'Charles','Lisa','Daniel','Nancy','Matthew','Betty','Anthony','Margaret','Mark','Sandra',
+		'Donald','Ashley','Steven','Kimberly','Paul','Emily','Andrew','Donna','Joshua','Michelle',
+		'Kenneth','Carol','Kevin','Amanda','Brian','Dorothy','George','Melissa','Timothy','Deborah'
+	],
+	lastNames: [
+		'Smith','Johnson','Williams','Brown','Jones','Garcia','Miller','Davis','Rodriguez','Martinez',
+		'Hernandez','Lopez','Gonzalez','Wilson','Anderson','Thomas','Taylor','Moore','Jackson','Martin',
+		'Lee','Perez','Thompson','White','Harris','Sanchez','Clark','Ramirez','Lewis','Robinson',
+		'Walker','Young','Allen','King','Wright','Scott','Torres','Nguyen','Hill','Flores'
+	],
+	states: [
+		'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA',
+		'ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK',
+		'OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
+	],
+	cities: [
+		'New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','San Diego',
+		'Dallas','San Jose','Austin','Jacksonville','Fort Worth','Columbus','Charlotte','Indianapolis',
+		'San Francisco','Seattle','Denver','Nashville','Oklahoma City','El Paso','Washington','Boston',
+		'Las Vegas','Portland','Memphis','Louisville','Baltimore','Milwaukee'
+	],
+	domains: ['gmail.com','yahoo.com','outlook.com','icloud.com','hotmail.com','aol.com'],
+	phoneMask: '(XXX) XXX-XXXX',
+	postalCodeMask: 'XXXXX-XXXX',
+	fieldI18nKeys: {},
+	docs: {
+		ssn: { generate: () => `${pad(3)}-${pad(2)}-${pad(4)}`, mono: true },
+		ein: { generate: () => `${pad(2)}-${pad(7)}`, mono: true }
+	}
+};
+
+function pad(n: number): string {
+	return String(Math.floor(Math.random() * Math.pow(10, n))).padStart(n, '0');
+}
+
+export default us;

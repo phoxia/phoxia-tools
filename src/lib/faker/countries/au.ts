@@ -1,0 +1,37 @@
+import type { CountryData } from '../types';
+
+const au: CountryData = {
+	id: 'au', flag: '🇦🇺',
+	firstNames: [
+		'Charlotte','Oliver','Isla','Noah','Amelia','Jack','Mia','Leo','Ava','William',
+		'Ella','Henry','Grace','Thomas','Sophie','James','Chloe','Lucas','Harper','Ethan',
+		'Evelyn','Liam','Zoe','Alexander','Matilda','Archer','Ruby','Charlie','Ivy','Harrison',
+		'Aria','Max','Lily','Sebastian','Scarlett','Oscar','Hannah','Levi','Georgia','Hudson'
+	],
+	lastNames: [
+		'Smith','Jones','Williams','Brown','Wilson','Taylor','Johnson','Lee','Martin','White',
+		'Nguyen','Walker','Harris','Clark','Thomas','Hall','Anderson','Thompson','Kelly','Campbell',
+		'Davis','Jackson','Roberts','Ryan','Mitchell','Carter','Wright','Evans','Turner','Collins',
+		'Bennett','Morgan','Stewart','Green','Edwards','Cooper','King','Richardson','Scott','Phillips'
+	],
+	states: [
+		'New South Wales','Victoria','Queensland','Western Australia','South Australia',
+		'Tasmania','Australian Capital Territory','Northern Territory'
+	],
+	cities: [
+		'Sydney','Melbourne','Brisbane','Perth','Adelaide','Gold Coast','Newcastle','Canberra',
+		'Sunshine Coast','Wollongong','Hobart','Geelong','Townsville','Cairns','Darwin',
+		'Toowoomba','Ballarat','Bendigo','Launceston','Albury','Mackay','Rockhampton','Bunbury'
+	],
+	domains: ['gmail.com','outlook.com','yahoo.com.au','bigpond.com','hotmail.com','icloud.com'],
+	phoneMask: '04XX XXX XXX',
+	postalCodeMask: 'XXXX',
+	fieldI18nKeys: {},
+	docs: {
+		tfn: { generate: () => `${pad(3)} ${pad(3)} ${pad(3)}`, mono: true }
+	}
+};
+
+function pad(n: number): string { return String(Math.floor(Math.random() * Math.pow(10, n))).padStart(n, '0'); }
+
+export default au;

@@ -1,0 +1,37 @@
+import type { CountryData } from '../types';
+
+const ca: CountryData = {
+	id: 'ca', flag: '🇨🇦',
+	firstNames: [
+		'Olivia','Liam','Emma','Noah','Charlotte','Jackson','Amelia','Lucas','Sophia','Oliver',
+		'Mia','Leo','Chloe','William','Isabella','Benjamin','Evelyn','James','Harper','Jack',
+		'Aria','Henry','Ella','Alexander','Abigail','Jacob','Grace','Daniel','Scarlett','Ethan',
+		'Lily','Logan','Hannah','Nathan','Zoey','Ryan','Nora','Samuel','Maya','Adam','Emily','Owen'
+	],
+	lastNames: [
+		'Smith','Brown','Tremblay','Martin','Roy','Wilson','MacDonald','Gagnon','Johnson','Taylor',
+		'Campbell','Anderson','Lee','Jones','Côté','White','Williams','Miller','Thompson','Gauthier',
+		'Morin','Wong','Young','Chan','Bouchard','Scott','Richard','Singh','Lavoie','Moore',
+		'Bergeron','Fortin','Clark','Murray','Ross','Allen','Walker','Murphy','Baker','Green'
+	],
+	states: [
+		'Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland and Labrador',
+		'Nova Scotia','Ontario','Prince Edward Island','Quebec','Saskatchewan'
+	],
+	cities: [
+		'Toronto','Montreal','Vancouver','Calgary','Edmonton','Ottawa','Winnipeg','Quebec City',
+		'Hamilton','Kitchener','London','Victoria','Halifax','Oshawa','Windsor','Saskatoon',
+		'Regina','St. John\'s','Kelowna','Barrie','Sherbrooke','Guelph','Kingston','Sudbury','Moncton'
+	],
+	domains: ['gmail.com','outlook.com','yahoo.ca','icloud.com','rogers.com','bell.net'],
+	phoneMask: '(XXX) XXX-XXXX',
+	postalCodeMask: '#X# #X#',
+	fieldI18nKeys: {},
+	docs: {
+		sin: { generate: () => `${pad(3)} ${pad(3)} ${pad(3)}`, mono: true }
+	}
+};
+
+function pad(n: number): string { return String(Math.floor(Math.random() * Math.pow(10, n))).padStart(n, '0'); }
+
+export default ca;

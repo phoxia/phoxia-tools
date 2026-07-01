@@ -1,0 +1,39 @@
+import type { CountryData } from '../types';
+
+const mx: CountryData = {
+	id: 'mx', flag: '🇲🇽',
+	firstNames: [
+		'Sofía','Santiago','Valentina','Mateo','Ximena','Sebastián','María','Leonardo','Camila','Diego',
+		'Valeria','Emiliano','Regina','Alejandro','Fernanda','Ángel','Renata','Daniel','Romina','José',
+		'Melissa','Jesús','Victoria','Miguel','Paola','Luis','Natalia','Fernando','Andrea','Carlos',
+		'Daniela','Juan','Mariana','Ricardo','Gabriela','David','Adriana','Antonio','Guadalupe','Eduardo'
+	],
+	lastNames: [
+		'Hernández','García','Martínez','López','González','Rodríguez','Pérez','Sánchez','Ramírez','Cruz',
+		'Flores','Gómez','Morales','Vázquez','Jiménez','Reyes','Díaz','Torres','Moreno','Ortiz',
+		'Ruiz','Mendoza','Aguilar','Castillo','Chávez','Romero','Rivera','Herrera','Medina','Vargas',
+		'Gutiérrez','Ramos','Méndez','Domínguez','Luna','Espinoza','Castro','Campos','Peña','Delgado'
+	],
+	states: [
+		'AGU','BCN','BCS','CAM','CHP','CHH','CMX','COA','COL','DUR','GUA','GRO','HID','JAL','MEX',
+		'MIC','MOR','NAY','NLE','OAX','PUE','QUE','ROO','SLP','SIN','SON','TAB','TAM','TLA','VER','YUC','ZAC'
+	],
+	cities: [
+		'Ciudad de México','Guadalajara','Monterrey','Puebla','Toluca','Tijuana','León','Ciudad Juárez',
+		'Torreón','Querétaro','San Luis Potosí','Mérida','Mexicali','Aguascalientes','Morelia',
+		'Chihuahua','Saltillo','Veracruz','Culiacán','Hermosillo','Cancún','Villahermosa','Oaxaca','Durango'
+	],
+	domains: ['gmail.com','hotmail.com','outlook.com','yahoo.com.mx','live.com.mx','prodigy.net.mx'],
+	phoneMask: 'XX XXXX XXXX',
+	postalCodeMask: 'XXXXX',
+	fieldI18nKeys: {},
+	docs: {
+		rfc: { generate: () => `${alpha(4)}${pad(6)}${alpha(3)}`, mono: true },
+		curp: { generate: () => `${alpha(4)}${pad(6)}${alpha(6)}${pad(2)}`, mono: true }
+	}
+};
+
+function pad(n: number): string { return String(Math.floor(Math.random() * Math.pow(10, n))).padStart(n, '0'); }
+function alpha(n: number): string { return Array.from({ length: n }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]).join(''); }
+
+export default mx;

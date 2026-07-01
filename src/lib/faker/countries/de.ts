@@ -1,0 +1,38 @@
+import type { CountryData } from '../types';
+
+const de: CountryData = {
+	id: 'de', flag: '🇩🇪',
+	firstNames: [
+		'Emilia','Noah','Hanna','Leon','Emma','Liam','Mia','Ben','Sophia','Elias',
+		'Lina','Paul','Marie','Finn','Mila','Luca','Charlotte','Jonas','Luisa','Felix',
+		'Anna','Luis','Lea','Maximilian','Lara','Henry','Emily','Jakob','Sarah','Oskar',
+		'Ida','Anton','Johanna','David','Amelie','Philipp','Clara','Alexander','Laura','Tim'
+	],
+	lastNames: [
+		'Müller','Schmidt','Schneider','Fischer','Weber','Meyer','Wagner','Becker','Hoffmann','Schäfer',
+		'Koch','Bauer','Richter','Klein','Wolf','Schröder','Neumann','Schwarz','Zimmermann','Braun',
+		'Krüger','Hofmann','Hartmann','Lange','Schmitt','Werner','Krause','Meier','Lehmann','Schmid',
+		'Schulze','Maier','Köhler','Herrmann','König','Walter','Mayer','Huber','Kaiser','Fuchs'
+	],
+	states: [
+		'Baden-Württemberg','Bayern','Berlin','Brandenburg','Bremen','Hamburg','Hessen',
+		'Mecklenburg-Vorpommern','Niedersachsen','Nordrhein-Westfalen','Rheinland-Pfalz',
+		'Saarland','Sachsen','Sachsen-Anhalt','Schleswig-Holstein','Thüringen'
+	],
+	cities: [
+		'Berlin','Hamburg','München','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig',
+		'Dortmund','Essen','Bremen','Dresden','Hannover','Nürnberg','Duisburg','Bochum',
+		'Wuppertal','Bielefeld','Bonn','Münster','Karlsruhe','Mannheim','Augsburg','Wiesbaden','Aachen'
+	],
+	domains: ['gmail.com','web.de','gmx.de','outlook.com','yahoo.de','t-online.de'],
+	phoneMask: 'XXXX XXXXXX',
+	postalCodeMask: 'XXXXX',
+	fieldI18nKeys: {},
+	docs: {
+		steuerId: { generate: () => `${pad(11)}`, mono: true }
+	}
+};
+
+function pad(n: number): string { return String(Math.floor(Math.random() * Math.pow(10, n))).padStart(n, '0'); }
+
+export default de;

@@ -1,0 +1,40 @@
+import type { CountryData } from '../types';
+
+const it: CountryData = {
+	id: 'it', flag: '🇮🇹',
+	firstNames: [
+		'Sofia','Leonardo','Aurora','Francesco','Giulia','Lorenzo','Alice','Alessandro','Emma','Mattia',
+		'Ginevra','Andrea','Beatrice','Gabriele','Giorgia','Riccardo','Martina','Matteo','Chiara','Tommaso',
+		'Anna','Davide','Sara','Antonio','Gaia','Federico','Elena','Marco','Vittoria','Giuseppe',
+		'Valentina','Luca','Noemi','Pietro','Francesca','Simone','Bianca','Giovanni','Rebecca','Stefano'
+	],
+	lastNames: [
+		'Rossi','Russo','Ferrari','Esposito','Bianchi','Romano','Colombo','Ricci','Marino','Greco',
+		'Bruno','Gallo','Conti','Costa','Mancini','Barbieri','Fontana','Rinaldi','Caruso','Moretti',
+		'Bernardi','Ferrara','De Luca','Pellegrini','Vitale','Lombardi','Marchetti','Parisi','Rizzo','Sanna',
+		'Coppola','Longo','Martini','Gatti','Serra','Farina','Giordano','Mariani','Morelli','Santoro'
+	],
+	states: [
+		'Abruzzo','Basilicata','Calabria','Campania','Emilia-Romagna','Friuli-Venezia Giulia','Lazio',
+		'Liguria','Lombardia','Marche','Molise','Piemonte','Puglia','Sardegna','Sicilia','Toscana',
+		'Trentino-Alto Adige','Umbria','Valle d\'Aosta','Veneto'
+	],
+	cities: [
+		'Roma','Milano','Napoli','Torino','Palermo','Genova','Bologna','Firenze','Bari','Catania',
+		'Venezia','Verona','Messina','Padova','Trieste','Brescia','Parma','Taranto','Prato','Modena',
+		'Reggio Calabria','Perugia','Livorno','Ravenna','Cagliari'
+	],
+	domains: ['gmail.com','hotmail.it','libero.it','yahoo.it','outlook.com','tiscali.it'],
+	phoneMask: 'XXX XXX XXXX',
+	postalCodeMask: 'XXXXX',
+	fieldI18nKeys: {},
+	docs: {
+		codiceFiscale: { generate: () => `${alpha(3)}${pad(2)}${alpha(1)}${pad(2)}${alpha(1)}${pad(3)}${alpha(1)}`, mono: true },
+		partitaIva: { generate: () => `${pad(11)}`, mono: true }
+	}
+};
+
+function pad(n: number): string { return String(Math.floor(Math.random() * Math.pow(10, n))).padStart(n, '0'); }
+function alpha(n: number): string { return Array.from({ length: n }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]).join(''); }
+
+export default it;
