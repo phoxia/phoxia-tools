@@ -1,4 +1,4 @@
-# phoxia tools
+# Phoxia Tools
 
 Free developer tools that run entirely in your browser. No data leaves your machine.
 
