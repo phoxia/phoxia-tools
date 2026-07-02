@@ -7,6 +7,7 @@ Free developer tools that run entirely in your browser. No data leaves your mach
 ## Tools
 
 ### Developer
+
 - **JSON** : Format, validate, minify, and tree-view JSON
 - **Base64** : Encode/decode Base64 text
 - **UUID** : Generate UUID v4
@@ -20,30 +21,33 @@ Free developer tools that run entirely in your browser. No data leaves your mach
 - **Diff** : Side-by-side text diff
 
 ### Text
+
 - **URL** : Encode/decode URL components
 - **Case** : Convert between casing styles (camel, snake, kebab, pascal, etc.)
 - **Slug** : Generate URL slugs from text
 - **Markdown** : Preview Markdown as HTML
 
 ### Reference
+
 - **HTTP Status** : Reference of HTTP status codes with descriptions
 - **OpenAPI** : Parse and display OpenAPI/Swagger specs
 
 ### Brazil
+
 - **CPF** : Validate and generate CPF numbers (pt-BR only)
 - **CNPJ** : Validate and generate CNPJ numbers (pt-BR only)
 - **Faker** : Generate realistic Brazilian fake data (pt-BR only)
 
 ## Stack
 
-| Layer | Choice |
-|-------|--------|
-| Framework | SvelteKit (SSR + client) |
-| Styling | Tailwind CSS 4 |
-| Icons | Lucide Svelte |
-| Fonts | Geist, Inter, JetBrains Mono |
-| Testing | Vitest |
-| Hosting | Vercel (adapter-vercel) |
+| Layer     | Choice                           |
+| --------- | -------------------------------- |
+| Framework | SvelteKit (SSR + client)         |
+| Styling   | Tailwind CSS 4                   |
+| Icons     | Lucide Svelte                    |
+| Fonts     | Geist, Inter, JetBrains Mono     |
+| Testing   | Vitest                           |
+| Hosting   | Vercel (adapter-vercel)          |
 | Analytics | Google Analytics (consent-gated) |
 
 ## Features

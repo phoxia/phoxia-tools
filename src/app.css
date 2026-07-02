@@ -52,10 +52,10 @@
   --color-accent: #d97706;
   --color-accent-hover: #b45309;
   --color-accent-glow: #f59e0b;
-  --color-accent-dim: rgba(217, 119, 6, 0.10);
+  --color-accent-dim: rgba(217, 119, 6, 0.1);
   --color-edge: #7c3aed;
   --color-edge-light: #a78bfa;
-  --color-edge-dim: rgba(124, 58, 237, 0.10);
+  --color-edge-dim: rgba(124, 58, 237, 0.1);
   --color-success: #16a34a;
   --color-warning: #ea580c;
   --color-error: #dc2626;
@@ -63,8 +63,14 @@
   --color-border-strong: #d0cec9;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -82,13 +88,22 @@ body {
   border-radius: var(--radius-sm);
 }
 
-a { color: var(--color-accent); text-decoration: none; }
-a:hover { color: var(--color-accent-hover); }
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-accent-hover);
+}
 
-button, [role="button"], a {
+button,
+[role="button"],
+a {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
 }
 
-nav a { min-height: unset; }
+nav a {
+  min-height: unset;
+}
