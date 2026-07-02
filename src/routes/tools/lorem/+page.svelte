@@ -42,7 +42,7 @@
           {t().tools.lorem.type}
         </div>
         <div style="display: flex; gap: 0.25rem;">
-          {#each types as t}
+          {#each types as t (t.id)}
             <button
               onclick={() => (type = t.id)}
               style="

@@ -116,7 +116,7 @@
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <!-- Tabs -->
     <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
-      {#each tabs as tab}
+      {#each tabs as tab (tab.id)}
         <button
           onclick={() => {
             activeTab = tab.id;
@@ -240,7 +240,7 @@
       <button onclick={numbersRun} style={btnPrimary}>{t().common.generate}</button>
       {#if resultList.length > 0}
         <div style="display: flex; flex-wrap: wrap; gap: 0.375rem;">
-          {#each resultList as n, i}
+          {#each resultList as n, i (i)}
             <span
               style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.375rem 0.75rem; font-family: var(--font-mono); font-size: 0.875rem;"
               >{n}</span
@@ -257,7 +257,7 @@
           style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--color-text-muted);"
           >{t().tools.random.diceFaces}
           <select bind:value={diceFaces} style={inputStyle}>
-            {#each DICE_FACES as f}
+            {#each DICE_FACES as f (f)}
               <option value={f}>d{f}</option>
             {/each}
           </select>
@@ -278,7 +278,7 @@
       {#if diceResults.length > 0}
         <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
           <div style="display: flex; flex-wrap: wrap; gap: 0.375rem;">
-            {#each diceResults as v}
+            {#each diceResults as v, i (i)}
               <span
                 style="background: var(--color-accent); color: #050508; border-radius: var(--radius); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700;"
                 >{v}</span

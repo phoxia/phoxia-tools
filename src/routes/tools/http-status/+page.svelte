@@ -4,9 +4,6 @@
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
 
-  type StatusCode = { code: number; name: string; desc: string };
-  type Group = { label: string; color: string; codes: StatusCode[] };
-
   const groups = $derived.by(() => {
     const codes = t().tools.httpStatus.codes;
     const groupDefs: { label: string; color: string; prefix: number }[] = [
@@ -78,7 +75,7 @@
 			"
     />
 
-    {#each filtered as group}
+    {#each filtered as group (group.label)}
       <div>
         <h3
           style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: {group.color}; margin: 0 0 0.625rem;"
@@ -88,7 +85,7 @@
         <div
           style="display: flex; flex-direction: column; gap: 1px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border);"
         >
-          {#each group.codes as entry}
+          {#each group.codes as entry (entry.code)}
             <div
               style="display: flex; align-items: baseline; gap: 1rem; padding: 0.6rem 0.875rem; background: var(--color-surface);"
             >

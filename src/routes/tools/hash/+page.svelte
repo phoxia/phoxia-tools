@@ -87,7 +87,7 @@
 
     {#if hasResult}
       <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-        {#each algos as algo}
+        {#each algos as algo (algo)}
           <div
             style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;"
           >

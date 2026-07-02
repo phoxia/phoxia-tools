@@ -74,6 +74,8 @@ export function saveConsent({ analytics, advertising }: ConsentCategories) {
     analytics,
     advertising,
     version: CONSENT_VERSION,
+    // Consumed immediately via toISOString(), never stored/mutated as state.
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
     timestamp: new Date().toISOString(),
   };
   try {
@@ -91,6 +93,8 @@ export function decline() {
     analytics: false,
     advertising: false,
     version: CONSENT_VERSION,
+    // Consumed immediately via toISOString(), never stored/mutated as state.
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
     timestamp: new Date().toISOString(),
   };
   try {

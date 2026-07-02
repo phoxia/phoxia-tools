@@ -97,7 +97,7 @@
 						display: flex; flex-direction: column; gap: 0.25rem;
 					"
         >
-          {#each uuids as uuid}
+          {#each uuids as uuid (uuid)}
             <span>{uuid}</span>
           {/each}
         </div>

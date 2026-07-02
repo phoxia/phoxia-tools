@@ -201,7 +201,7 @@
   const inputStyle =
     "width: 100%; padding: 0.5rem 0.75rem; box-sizing: border-box; font-family: var(--font-mono); font-size: 0.875rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text);";
 
-  const resultRow = (label: string, value: string) => `
+  const resultRow = () => `
 		display: flex; align-items: center; gap: 0.75rem;
 		background: var(--color-surface); border: 1px solid var(--color-border);
 		border-radius: var(--radius); padding: 0.5rem 0.75rem;
@@ -225,7 +225,7 @@
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <!-- Tabs -->
     <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
-      {#each tabs as tab}
+      {#each tabs as tab (tab.id)}
         <button
           onclick={() => {
             activeTab = tab.id;
@@ -280,8 +280,8 @@
           </p>
         {:else}
           <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            {#each [{ label: t().tools.timestamp.labelUnix, value: String(tsResult.unix) }, { label: t().tools.timestamp.labelUnixMs, value: String(tsResult.unixMs) }, { label: t().tools.timestamp.labelIso, value: tsResult.iso ?? "" }, { label: t().tools.timestamp.labelUtc, value: tsResult.utc ?? "" }] as row}
-              <div style={resultRow(row.label, row.value)}>
+            {#each [{ label: t().tools.timestamp.labelUnix, value: String(tsResult.unix) }, { label: t().tools.timestamp.labelUnixMs, value: String(tsResult.unixMs) }, { label: t().tools.timestamp.labelIso, value: tsResult.iso ?? "" }, { label: t().tools.timestamp.labelUtc, value: tsResult.utc ?? "" }] as row (row.label)}
+              <div style={resultRow()}>
                 <span
                   style="font-size: 0.75rem; color: var(--color-text-faint); min-width: 80px; flex-shrink: 0;"
                   >{row.label}</span
@@ -319,7 +319,7 @@
         />
       </div>
       <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
-        {#each cronExamples as ex}
+        {#each cronExamples as ex (ex.expr)}
           <button
             onclick={() => cronQuick(ex.expr)}
             style="padding: 0.25rem 0.5rem; font-size: 0.7rem; border: 1px solid var(--color-border); border-radius: 99px; background: transparent; color: var(--color-text-muted); cursor: pointer;"
@@ -343,8 +343,8 @@
             >{t().tools.cron.nextExecutions}</span
           >
           <div style="display: flex; flex-direction: column; gap: 0.375rem; margin-top: 0.5rem;">
-            {#each cronNext as d, i}
-              <div style={resultRow(String(i + 1), d.toLocaleString())}>
+            {#each cronNext as d, i (i)}
+              <div style={resultRow()}>
                 <span
                   style="font-size: 0.75rem; color: var(--color-text-faint); min-width: 24px; flex-shrink: 0;"
                   >{i + 1}</span
@@ -387,7 +387,7 @@
         <div
           style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;"
         >
-          {#each items as item}
+          {#each items as item (item.label)}
             <div
               style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.75rem; text-align: center;"
             >
@@ -416,7 +416,7 @@
         <input id="math-date" type="date" bind:value={mathDate} style={inputStyle} />
       </div>
       <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        {#each [{ k: "days" as const, v: mathDays }, { k: "months" as const, v: mathMonths }, { k: "years" as const, v: mathYears }] as field}
+        {#each [{ k: "days" as const, v: mathDays }, { k: "months" as const, v: mathMonths }, { k: "years" as const, v: mathYears }] as field (field.k)}
           <label
             style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--color-text-muted);"
           >
@@ -527,7 +527,7 @@
             </div>
           {:else}
             <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-              {#each [{ v: cdState.days, l: t().tools.datetime.countdown.days }, { v: cdState.hours, l: t().tools.datetime.countdown.hours }, { v: cdState.minutes, l: t().tools.datetime.countdown.minutes }, { v: cdState.seconds, l: t().tools.datetime.countdown.seconds }] as part}
+              {#each [{ v: cdState.days, l: t().tools.datetime.countdown.days }, { v: cdState.hours, l: t().tools.datetime.countdown.hours }, { v: cdState.minutes, l: t().tools.datetime.countdown.minutes }, { v: cdState.seconds, l: t().tools.datetime.countdown.seconds }] as part (part.l)}
                 <div style="text-align: center; min-width: 60px;">
                   <div
                     style="font-size: 2rem; font-weight: 700; font-family: var(--font-mono); color: var(--color-accent);"

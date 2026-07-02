@@ -97,13 +97,6 @@ export function parseCurl(cmd: string): CurlResult {
   return { method, url, headers, body, fetch: fetchCode, axios: axiosCode };
 }
 
-function headersLiteral(h: Record<string, string>): string {
-  const entries = Object.entries(h);
-  if (!entries.length) return "";
-  const lines = entries.map(([k, v]) => `    '${k}': '${v}'`).join(",\n");
-  return `  headers: {\n${lines}\n  },\n`;
-}
-
 function buildFetch(
   method: string,
   url: string,

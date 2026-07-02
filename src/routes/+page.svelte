@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from "$app/paths";
   import { t } from "$lib/i18n/i18n.svelte";
   import { getToolsByCategory } from "$lib/tools/registry";
   import Seo from "$lib/components/Seo.svelte";
@@ -18,15 +19,21 @@
     <p class="home-subtitle">{t().home.subtitle}</p>
   </header>
 
-  {#each categories as category}
+  {#each categories as category (category)}
     {#if grouped[category].length > 0}
       <section class="home-section">
         <h2 class="section-label">{t().home.categories[category]}</h2>
         <div class="tool-grid">
-          {#each grouped[category] as tool}
+          {#each grouped[category] as tool (tool.id)}
             {@const toolLocale = t().tools[tool.id as keyof LocaleShape["tools"]]}
             {@const ToolIcon = tool.icon}
-            <a href={tool.route} class="tool-card">
+            <!-- resolve()'s overloads are keyed on one literal route at a
+                 time; TS can't narrow them against tool.route, which is
+                 typed as the full Pathname union (data-driven list). Each
+                 route is already checked against Pathname in registry.ts,
+                 so a typo there is caught — this cast just avoids fighting
+                 the overload resolution for an already-validated value. -->
+            <a href={resolve(tool.route as any)} class="tool-card">
               <div class="tool-card-icon"><ToolIcon size={18} strokeWidth={1.75} /></div>
               <div>
                 <div class="tool-card-name">{toolLocale?.name ?? tool.id}</div>

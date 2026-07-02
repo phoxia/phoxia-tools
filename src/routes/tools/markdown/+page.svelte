@@ -32,7 +32,7 @@
     <!-- Toolbar -->
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <div style="display: flex; gap: 0.375rem;">
-        {#each ["split", "preview"] as const as v}
+        {#each ["split", "preview"] as const as v (v)}
           <button
             onclick={() => (view = v)}
             style="

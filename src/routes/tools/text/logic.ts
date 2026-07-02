@@ -118,7 +118,7 @@ export function findReplace(
   if (useRegex) {
     try {
       const re = new RegExp(find, "g");
-      output = input.replace(re, (...args) => {
+      output = input.replace(re, () => {
         count++;
         return replace;
       });

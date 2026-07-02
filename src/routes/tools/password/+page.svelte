@@ -97,7 +97,7 @@
     </div>
 
     <div style="display: flex; gap: 1.25rem; flex-wrap: wrap;">
-      {#each [{ label: t().tools.password.labelUpper, bind: "upper" }, { label: t().tools.password.labelLower, bind: "lower" }, { label: t().tools.password.labelDigits, bind: "digits" }, { label: t().tools.password.labelSymbols, bind: "symbols" }] as opt}
+      {#each [{ label: t().tools.password.labelUpper, bind: "upper" }, { label: t().tools.password.labelLower, bind: "lower" }, { label: t().tools.password.labelDigits, bind: "digits" }, { label: t().tools.password.labelSymbols, bind: "symbols" }] as opt (opt.bind)}
         <label
           style="display: flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; cursor: pointer; min-height: unset;"
         >
@@ -170,7 +170,7 @@
       <div
         style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.875rem; display: flex; flex-direction: column; gap: 0.375rem;"
       >
-        {#each passwords as pw}
+        {#each passwords as pw, i (i)}
           <code
             style="font-family: var(--font-mono); font-size: 0.9rem; letter-spacing: 0.03em; color: var(--color-text); word-break: break-all;"
           >

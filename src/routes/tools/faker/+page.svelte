@@ -1,6 +1,8 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { goto } from "$app/navigation";
+  import { resolve } from "$app/paths";
+  import { SvelteSet } from "svelte/reactivity";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import Seo from "$lib/components/Seo.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
@@ -23,8 +25,8 @@
   let count = $state(5);
   let activeFields = $state(
     fieldParam && getFields(selectedCountry).includes(fieldParam)
-      ? new Set<string>([fieldParam])
-      : new Set<string>(["name", "email", "phone", "postalCode", "state", "city"])
+      ? new SvelteSet<string>([fieldParam])
+      : new SvelteSet<string>(["name", "email", "phone", "postalCode", "state", "city"])
   );
   let records = $state<Record<string, string>[]>([]);
   let copiedJson = $state(false);
@@ -44,23 +46,21 @@
   }
 
   function toggleField(f: string) {
-    const next = new Set(activeFields);
-    if (next.has(f)) {
-      if (next.size > 1) next.delete(f);
-    } else next.add(f);
-    activeFields = next;
+    if (activeFields.has(f)) {
+      if (activeFields.size > 1) activeFields.delete(f);
+    } else activeFields.add(f);
   }
 
   function onCountryChange(id: string) {
     selectedCountry = getCountry(id);
-    activeFields = new Set(["name", "email", "phone", "postalCode", "state", "city"]);
+    activeFields = new SvelteSet(["name", "email", "phone", "postalCode", "state", "city"]);
     generate();
   }
 
   // ponytail: clear stale ?field / ?country from URL without full navigation
   $effect(() => {
     if ((fieldParam || countryParam) && typeof window !== "undefined") {
-      goto("/tools/faker", { replaceState: true, noScroll: true });
+      goto(resolve("/tools/faker"), { replaceState: true, noScroll: true });
     }
   });
 
@@ -130,7 +130,7 @@
           onchange={(e) => onCountryChange((e.target as HTMLSelectElement).value)}
           style="padding: 0.35rem 0.6rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-text); font-size: 0.85rem; cursor: pointer;"
         >
-          {#each countryList as c}
+          {#each countryList as c (c.id)}
             <option value={c.id}
               >{c.flag} {t().tools.faker.countries[c.id] ?? c.id.toUpperCase()}</option
             >
@@ -181,7 +181,7 @@
 
     <!-- Field pills -->
     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-      {#each availableFields as f}
+      {#each availableFields as f (f)}
         <button
           onclick={() => toggleField(f)}
           style="
@@ -206,7 +206,7 @@
         <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
           <thead>
             <tr style="background: color-mix(in srgb, var(--color-surface) 50%, transparent);">
-              {#each visibleFields as f}
+              {#each visibleFields as f (f)}
                 <th
                   style="padding: 0.5rem 0.875rem; text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-faint); white-space: nowrap; border-bottom: 1px solid var(--color-border);"
                 >
@@ -216,9 +216,9 @@
             </tr>
           </thead>
           <tbody>
-            {#each records as row, i}
+            {#each records as row, i (i)}
               <tr style="border-top: {i > 0 ? '1px solid var(--color-border)' : 'none'};">
-                {#each visibleFields as f}
+                {#each visibleFields as f (f)}
                   <td
                     style="padding: 0.5rem 0.875rem; color: var(--color-text); font-family: {selectedCountry
                       .docs[f]?.mono

@@ -105,7 +105,7 @@
       <div
         style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.6;"
       >
-        {#each diff as line, i}
+        {#each diff as line, i (i)}
           {@const bg =
             line.type === "added"
               ? "color-mix(in srgb, var(--color-success) 10%, transparent)"

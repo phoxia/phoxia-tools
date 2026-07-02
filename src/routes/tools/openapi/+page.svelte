@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SvelteSet } from "svelte/reactivity";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
@@ -90,7 +91,7 @@
   };
 
   let input = $state(EXAMPLE);
-  let expanded = $state(new Set<string>());
+  const expanded = new SvelteSet<string>();
 
   function parse(json: string): ParsedSpec | null {
     if (!json.trim()) return null;
@@ -152,17 +153,13 @@
   const parsed = $derived(parse(input));
 
   function toggleTag(tag: string) {
-    const next = new Set(expanded);
-    if (next.has(tag)) next.delete(tag);
-    else next.add(tag);
-    expanded = next;
+    if (expanded.has(tag)) expanded.delete(tag);
+    else expanded.add(tag);
   }
 
   function toggleEndpoint(key: string) {
-    const next = new Set(expanded);
-    if (next.has(key)) next.delete(key);
-    else next.add(key);
-    expanded = next;
+    if (expanded.has(key)) expanded.delete(key);
+    else expanded.add(key);
   }
 </script>
 
@@ -218,7 +215,7 @@
           {/if}
           {#if parsed.servers.length > 0}
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              {#each parsed.servers as server}
+              {#each parsed.servers as server (server)}
                 <code
                   style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--color-text-muted);"
                   >{server}</code
@@ -229,7 +226,7 @@
         </div>
 
         <!-- Endpoints by tag -->
-        {#each Object.entries(parsed.tags) as [tag, endpoints]}
+        {#each Object.entries(parsed.tags) as [tag, endpoints] (tag)}
           {@const tagOpen = expanded.has(`tag:${tag}`)}
           <div
             style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;"
@@ -254,7 +251,7 @@
 
             {#if tagOpen}
               <div style="border-top: 1px solid var(--color-border);">
-                {#each endpoints as ep, i}
+                {#each endpoints as ep, i (ep.method + ":" + ep.path)}
                   {@const epKey = `ep:${tag}:${ep.method}:${ep.path}`}
                   {@const epOpen = expanded.has(epKey)}
                   {@const methodColor = METHOD_COLORS[ep.method] ?? "var(--color-text-muted)"}
@@ -307,7 +304,7 @@
                             {t().tools.openapi.responses}
                           </p>
                           <div style="display: flex; flex-direction: column; gap: 0.125rem;">
-                            {#each Object.entries(ep.responses) as [code, resp]}
+                            {#each Object.entries(ep.responses) as [code, resp] (code)}
                               <div
                                 style="display: flex; gap: 0.75rem; font-size: 0.78rem; font-family: var(--font-mono);"
                               >

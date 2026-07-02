@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from "$app/paths";
   import { t } from "$lib/i18n/i18n.svelte";
   import { revoke } from "$lib/consent/consent.svelte";
   import { revokeClipboardConsent } from "$lib/consent/clipboardConsent.svelte";
@@ -10,7 +11,7 @@
   <div class="footer-inner">
     <!-- ── TOP ── -->
     <div class="footer-top">
-      <a href="/" class="footer-logo" aria-label={locale.aria.homeLogo}>
+      <a href={resolve("/")} class="footer-logo" aria-label={locale.aria.homeLogo}>
         <img
           src="/brand/symbol.png"
           alt=""
@@ -25,8 +26,8 @@
 
       <nav class="footer-links" aria-label={locale.aria.footerNav}>
         <a href="https://phoxia.org/contact">{locale.footer.contact}</a>
-        <a href="/privacy">{locale.footer.privacy}</a>
-        <a href="/terms">{locale.footer.terms}</a>
+        <a href={resolve("/privacy")}>{locale.footer.privacy}</a>
+        <a href={resolve("/terms")}>{locale.footer.terms}</a>
       </nav>
     </div>
 

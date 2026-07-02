@@ -1,12 +1,12 @@
 <script lang="ts">
+  import { SvelteSet } from "svelte/reactivity";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
 
   let pattern = $state("\\b\\w+@\\w+\\.\\w+\\b");
-  let flags = $state(new Set(["g", "i"]));
+  const flags = new SvelteSet(["g", "i"]);
   let testStr = $state("Contact us at hello@example.com or support@phoxia.org for help.");
-  let error = $state("");
   let hasTrackedRegex = false;
 
   const ALL_FLAGS = ["g", "i", "m", "s"];
@@ -16,7 +16,6 @@
   const result = $derived.by(() => {
     if (!pattern) return { matches: [], highlighted: [{ text: testStr, match: false }], error: "" };
     try {
-      const re = new RegExp(pattern, [...flags].join(""));
       const matches: Match[] = [];
       let m: RegExpExecArray | null;
       const re2 = new RegExp(
@@ -56,10 +55,8 @@
   }
 
   function toggleFlag(f: string) {
-    const next = new Set(flags);
-    if (next.has(f)) next.delete(f);
-    else next.add(f);
-    flags = next;
+    if (flags.has(f)) flags.delete(f);
+    else flags.add(f);
   }
 
   const FLAG_DESC: Record<string, string> = $derived({
@@ -121,7 +118,7 @@
       <span style="font-size: 0.8rem; color: var(--color-text-muted);"
         >{t().tools.regex.labelFlags}</span
       >
-      {#each ALL_FLAGS as f}
+      {#each ALL_FLAGS as f (f)}
         <button
           onclick={() => toggleFlag(f)}
           title={FLAG_DESC[f]}
@@ -179,7 +176,7 @@
 					white-space: pre-wrap; word-break: break-all; color: var(--color-text);
 				"
         >
-          {#each result.highlighted as part}
+          {#each result.highlighted as part, i (i)}
             {#if part.match}
               <mark
                 style="background: color-mix(in srgb, var(--color-accent) 30%, transparent); color: var(--color-text); border-radius: 2px; padding: 0 1px;"
@@ -198,7 +195,7 @@
           <span style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.25rem;"
             >{t().tools.regex.labelCaptureGroups}</span
           >
-          {#each result.matches as m, i}
+          {#each result.matches as m, i (i)}
             {#if m.groups.length > 0}
               <div
                 style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--color-text-muted);"

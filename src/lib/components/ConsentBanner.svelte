@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from "$app/paths";
   import { t } from "$lib/i18n/i18n.svelte";
   import { showBanner, versionChanged, saveConsent, decline } from "$lib/consent/consent.svelte";
 
@@ -63,7 +64,7 @@
           <p style="margin: 0 0 0.375rem; color: var(--color-text); font-size: 0.875rem;">
             {t().consent.message}
             <a
-              href="/privacy"
+              href={resolve("/privacy")}
               style="margin-left: 0.375rem; color: var(--color-text-muted); font-size: 0.8rem;"
               >{t().consent.bannerPrivacy}</a
             >

@@ -111,7 +111,7 @@
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <!-- Tabs -->
     <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
-      {#each tabs as tab}
+      {#each tabs as tab (tab.id)}
         <button onclick={() => (activeTab = tab.id)} style={tabStyle(tab.id)}>
           {tab.icon}
           {t().tools.text.tabs[tab.id]}
@@ -149,7 +149,7 @@
     <!-- === CASE === -->
     {#if activeTab === "case" && caseResults.length > 0}
       <div style="display: flex; flex-direction: column; gap: 0.375rem;">
-        {#each caseResults as row}
+        {#each caseResults as row (row.id)}
           <div
             style="display: flex; align-items: center; gap: 0.75rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.5rem 0.75rem;"
           >
@@ -178,7 +178,7 @@
         <span style="font-size: 0.8rem; color: var(--color-text-muted);"
           >{t().tools.slug.labelSeparator}</span
         >
-        {#each ["-", "_"] as sep}
+        {#each ["-", "_"] as sep (sep)}
           <button
             onclick={() => (slugSeparator = sep as "-" | "_")}
             style="
@@ -231,7 +231,7 @@
       <div
         style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem;"
       >
-        {#each items as item}
+        {#each items as item (item.label)}
           <div
             style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.75rem; text-align: center;"
           >

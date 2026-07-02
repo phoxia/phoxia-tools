@@ -1,10 +1,8 @@
+import type { Pathname } from "$app/types";
 import type { IconComponent } from "$lib/icons";
 import {
   Braces,
-  Binary,
   Fingerprint,
-  Clock,
-  Link,
   CaseSensitive,
   ShieldCheck,
   Hash,
@@ -27,7 +25,7 @@ export type Category = "dev" | "text" | "reference";
 
 export type ToolEntry = {
   id: string;
-  route: string;
+  route: Pathname;
   category: Category;
   icon: IconComponent;
 };

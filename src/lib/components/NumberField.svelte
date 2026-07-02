@@ -29,11 +29,11 @@
     width?: string;
   } = $props();
 
-  let raw = $state(String(value));
-
-  $effect(() => {
-    raw = String(value);
-  });
+  // Writable $derived: primarily mirrors `value`, but stays directly
+  // assignable so bind:value + oninput/onblur below can hold intermediate
+  // typed states (e.g. "-", "07") that aren't valid parsed numbers yet.
+  // Recomputes fresh from `value` whenever `value` itself changes.
+  let raw = $derived(String(value));
 
   const luxState = $derived(statusToLux(status));
   const borderColor = $derived(statusToColor(status));

@@ -130,7 +130,7 @@
         {/if}
 
         <!-- Three panels -->
-        {#each [{ label: t().tools.jwt.header, data: result.header, raw: result.raw?.header, key: "header" }, { label: t().tools.jwt.payload, data: result.payload, raw: result.raw?.payload, key: "payload" }, { label: t().tools.jwt.signature, data: null, raw: result.signature, key: "sig" }] as panel}
+        {#each [{ label: t().tools.jwt.header, data: result.header, raw: result.raw?.header, key: "header" }, { label: t().tools.jwt.payload, data: result.payload, raw: result.raw?.payload, key: "payload" }, { label: t().tools.jwt.signature, data: null, raw: result.signature, key: "sig" }] as panel (panel.key)}
           <div
             style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;"
           >

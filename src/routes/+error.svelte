@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import { resolve } from "$app/paths";
 </script>
 
 <main
@@ -14,7 +15,7 @@
     {page.status === 404 ? "Page not found" : "Something went wrong"}
   </p>
   <a
-    href="/"
+    href={resolve("/")}
     style="
 			display: inline-block; padding: 0.625rem 1.5rem;
 			background: var(--color-accent); color: #050508;

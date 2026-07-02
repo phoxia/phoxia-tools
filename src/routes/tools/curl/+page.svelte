@@ -107,7 +107,7 @@
           style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;"
         >
           <div style="display: flex; border-bottom: 1px solid var(--color-border);">
-            {#each [t().tools.curl.fetch, t().tools.curl.axios] as label, i}
+            {#each [t().tools.curl.fetch, t().tools.curl.axios] as label, i (i)}
               {@const t_ = i === 0 ? ("fetch" as const) : ("axios" as const)}
               <button
                 onclick={() => {

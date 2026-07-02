@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { page } from "$app/state";
+  import { resolve } from "$app/paths";
   import { t, cycleLang, getLang } from "$lib/i18n/i18n.svelte";
   import { cycleMode, getModePref } from "$lib/theme/theme.svelte";
   import { Sun, Moon, Monitor, Languages, Menu, X } from "$lib/icons";
@@ -8,7 +9,7 @@
 
   const isToolPage = $derived(page.url.pathname.startsWith("/tools/"));
 
-  let modePref = $state(getModePref());
+  let modePref = $derived(getModePref());
   let lang = $state(getLang());
   let scrolled = $state(false);
 
@@ -29,17 +30,12 @@
 
   function handleMode() {
     cycleMode();
-    modePref = getModePref();
   }
 
   function handleLang() {
     cycleLang();
     lang = getLang();
   }
-
-  $effect(() => {
-    modePref = getModePref();
-  });
 
   const ModeIcon = $derived(modePref === "dark" ? Sun : modePref === "light" ? Moon : Monitor);
 
@@ -57,7 +53,7 @@
 
 <header class="nav-header" class:scrolled>
   <nav class="nav-inner" aria-label={locale.nav.mainNavAria}>
-    <a href="/" class="nav-logo" aria-label={locale.aria.homeLogo}>
+    <a href={resolve("/")} class="nav-logo" aria-label={locale.aria.homeLogo}>
       <img src="/brand/symbol.png" alt="" width="28" height="28" aria-hidden="true" />
       <span class="nav-wordmark">Phoxia <span class="nav-accent">Tools</span></span>
     </a>

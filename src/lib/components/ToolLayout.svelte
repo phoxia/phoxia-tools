@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import { resolve } from "$app/paths";
   import { onMount } from "svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { getToolsByCategory } from "$lib/tools/registry";
@@ -66,15 +67,21 @@
   <!-- Sidebar -->
   <aside class="tool-sidebar" class:sidebar-open={sidebarState.open} bind:this={sidebarNavEl}>
     <nav aria-label={t().aria.allTools}>
-      {#each categories as category}
+      {#each categories as category (category)}
         {#if grouped[category].length > 0}
           <div class="sidebar-group">
             <p class="sidebar-category">{t().home.categories[category]}</p>
-            {#each grouped[category] as tool}
+            {#each grouped[category] as tool (tool.id)}
               {@const ToolIcon = tool.icon}
               {@const toolLocale = t().tools[tool.id as keyof LocaleShape["tools"]]}
+              <!-- resolve()'s overloads are keyed on one literal route at a
+                   time; TS can't narrow them against tool.route, which is
+                   typed as the full Pathname union (data-driven list). Each
+                   route is already checked against Pathname in registry.ts,
+                   so a typo there is caught — this cast just avoids fighting
+                   the overload resolution for an already-validated value. -->
               <a
-                href={tool.route}
+                href={resolve(tool.route as any)}
                 class="sidebar-link"
                 class:active={currentPath === tool.route}
                 aria-current={currentPath === tool.route ? "page" : undefined}

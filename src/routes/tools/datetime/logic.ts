@@ -38,7 +38,7 @@ export function parseCron(
   { fields: Record<CronField, string>; error?: undefined } | { error: string; fields?: undefined } {
   const parts = expr.trim().split(/\s+/);
   if (parts.length !== 5) return { error: "Cron expression must have 5 fields" };
-  const valid = /^[\d*/,\-]+$/;
+  const valid = /^[\d*/,-]+$/;
   for (const part of parts) {
     if (!valid.test(part)) return { error: "Invalid cron expression" };
   }

@@ -146,7 +146,7 @@
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <!-- Tabs -->
     <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
-      {#each tabs as tab}
+      {#each tabs as tab (tab.id)}
         <button
           onclick={() => {
             activeTab = tab.id;
@@ -227,7 +227,7 @@
     <!-- URL Parse Result -->
     {#if parsedUrl}
       <div style="display: flex; flex-direction: column; gap: 0.375rem;">
-        {#each ["protocol", "hostname", "port", "pathname", "search", "hash"] as key}
+        {#each ["protocol", "hostname", "port", "pathname", "search", "hash"] as key (key)}
           {#if parsedUrl[key]}
             <div
               style="display: flex; gap: 0.75rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.5rem 0.75rem;"
@@ -247,7 +247,7 @@
             style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.5rem 0.75rem;"
           >
             <span style="font-size: 0.75rem; color: var(--color-text-faint);">params</span>
-            {#each urlParams as [k, v]}
+            {#each urlParams as [k, v] (k)}
               <div
                 style="display: flex; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.25rem;"
               >
