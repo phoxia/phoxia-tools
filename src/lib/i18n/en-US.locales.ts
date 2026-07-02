@@ -178,6 +178,7 @@ const en: LocaleShape = {
       diceQty: "Qty",
       roll: "Roll",
       emptyList: "Add at least one item to the list.",
+      rangeHint: "Between {min} and {max}.",
     },
     httpStatus: {
       name: "HTTP Status Codes",
@@ -695,7 +696,6 @@ const en: LocaleShape = {
     error: "Error",
     inputPlaceholder: "Paste your input here…",
     outputPlaceholder: "Output will appear here",
-    inputTooLarge: "Input exceeds 500 KB limit.",
     tocLabel: "Contents",
     valid: "Valid",
     invalid: "Invalid",
@@ -711,6 +711,12 @@ const en: LocaleShape = {
   },
   privacyPage: { title: "Privacy Policy" },
   termsPage: { title: "Terms of Use" },
+  copyDetect: {
+    prompt: "Looks like Base64. Want to decode it?",
+    openInTool: "Open in full tool",
+    dismiss: "Dismiss",
+    optOut: "Don't ask again",
+  },
 };
 
 export default en;

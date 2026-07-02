@@ -1,5 +1,7 @@
 <script lang="ts">
   import ToolLayout from "$lib/components/ToolLayout.svelte";
+  import TextField from "$lib/components/TextField.svelte";
+  import TextAreaField from "$lib/components/TextAreaField.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
@@ -12,6 +14,8 @@
   let output = $state("");
   let error = $state("");
   let loading = $state(false);
+
+  const passwordMismatch = $derived(error === t().tools.cipher.passwordMismatch);
 
   async function runEncrypt() {
     if (password !== confirmPassword) {
@@ -67,8 +71,6 @@
     if (ok) setTimeout(() => (copiedId = ""), 1500);
   }
 
-  const inputStyle =
-    "width: 100%; padding: 0.5rem 0.75rem; box-sizing: border-box; font-family: var(--font-mono); font-size: 0.875rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text);";
   const textareaStyle =
     "width: 100%; min-height: 120px; resize: vertical; font-family: var(--font-mono); font-size: 0.85rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); padding: 0.75rem; box-sizing: border-box;";
 </script>
@@ -77,41 +79,33 @@
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
       <div style="flex: 1; min-width: 200px;">
-        <label
-          for="cipher-pass"
-          style="display: block; font-size: 0.85rem; margin-bottom: 0.375rem; color: var(--color-text-muted);"
-          >{t().tools.cipher.password}</label
-        >
-        <input id="cipher-pass" type="password" bind:value={password} style={inputStyle} />
+        <TextField
+          id="cipher-pass"
+          type="password"
+          bind:value={password}
+          label={t().tools.cipher.password}
+        />
       </div>
       <div style="flex: 1; min-width: 200px;">
-        <label
-          for="cipher-confirm"
-          style="display: block; font-size: 0.85rem; margin-bottom: 0.375rem; color: var(--color-text-muted);"
-          >{t().tools.cipher.confirmPassword}</label
-        >
-        <input
+        <TextField
           id="cipher-confirm"
           type="password"
           bind:value={confirmPassword}
-          style={inputStyle}
+          label={t().tools.cipher.confirmPassword}
+          status={passwordMismatch ? "error" : "idle"}
+          hint={passwordMismatch ? error : undefined}
+          showMascot
         />
       </div>
     </div>
 
-    <div>
-      <label
-        for="cipher-plain"
-        style="display: block; font-size: 0.85rem; margin-bottom: 0.375rem; color: var(--color-text-muted);"
-        >{t().tools.cipher.plaintext}</label
-      >
-      <textarea
-        id="cipher-plain"
-        bind:value={plaintext}
-        placeholder={t().tools.cipher.plaintextPlaceholder}
-        spellcheck={false}
-        style={textareaStyle}></textarea>
-    </div>
+    <TextAreaField
+      id="cipher-plain"
+      bind:value={plaintext}
+      label={t().tools.cipher.plaintext}
+      placeholder={t().tools.cipher.plaintextPlaceholder}
+      minHeight="120px"
+    />
 
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
       <button
@@ -142,26 +136,22 @@
 
     <hr style="border: none; border-top: 1px solid var(--color-border);" />
 
-    <div>
-      <label
-        for="cipher-ct"
-        style="display: block; font-size: 0.85rem; margin-bottom: 0.375rem; color: var(--color-text-muted);"
-        >{t().tools.cipher.ciphertextInput}</label
-      >
-      <textarea
-        id="cipher-ct"
-        bind:value={ciphertext}
-        placeholder={t().tools.cipher.ciphertextPlaceholder}
-        spellcheck={false}
-        style={textareaStyle}></textarea>
-    </div>
+    <TextAreaField
+      id="cipher-ct"
+      bind:value={ciphertext}
+      label={t().tools.cipher.ciphertextInput}
+      placeholder={t().tools.cipher.ciphertextPlaceholder}
+      minHeight="120px"
+    />
 
-    <button
-      onclick={runDecrypt}
-      disabled={!ciphertext.trim() || !password || loading}
-      style="background: var(--color-accent); color: #050508; border: none; border-radius: var(--radius); padding: 0.5rem 1rem; font-weight: 600; cursor: pointer; font-size: 0.875rem;"
-      >{loading ? "..." : t().common.decode}</button
-    >
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button
+        onclick={runDecrypt}
+        disabled={!ciphertext.trim() || !password || loading}
+        style="background: var(--color-accent); color: #050508; border: none; border-radius: var(--radius); padding: 0.5rem 1rem; font-weight: 600; cursor: pointer; font-size: 0.875rem;"
+        >{loading ? "..." : t().common.decode}</button
+      >
+    </div>
 
     {#if output}
       <div>
@@ -181,7 +171,7 @@
       </div>
     {/if}
 
-    {#if error}
+    {#if error && !passwordMismatch}
       <p role="alert" style="color: var(--color-error); font-size: 0.875rem; margin: 0;">{error}</p>
     {/if}
 

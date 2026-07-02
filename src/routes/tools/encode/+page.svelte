@@ -1,8 +1,12 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { page } from "$app/state";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
+  import TextAreaField from "$lib/components/TextAreaField.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { COPY_DETECT_PREFILL_KEY } from "$lib/copyDetect";
   import {
     encodeBase64,
     decodeBase64,
@@ -30,6 +34,18 @@
   let output = $state("");
   let error = $state("");
   let hasResult = $state(false);
+
+  onMount(() => {
+    const tabParam = page.url.searchParams.get("tab") as EncodeMode | null;
+    if (tabParam && ["base64", "url", "binary", "morse", "hex"].includes(tabParam)) {
+      activeTab = tabParam;
+    }
+    const prefill = sessionStorage.getItem(COPY_DETECT_PREFILL_KEY);
+    if (prefill) {
+      input = prefill;
+      sessionStorage.removeItem(COPY_DETECT_PREFILL_KEY);
+    }
+  });
 
   let parsedUrl = $state<Record<string, string> | null>(null);
   const urlParams = $derived(
@@ -144,20 +160,16 @@
     </div>
 
     <!-- Input -->
-    <div>
-      <label
-        for="encode-input"
-        style="display: block; font-size: 0.85rem; margin-bottom: 0.375rem; color: var(--color-text-muted);"
-      >
-        {t().common.inputPlaceholder}
-      </label>
-      <textarea
-        id="encode-input"
-        bind:value={input}
-        placeholder={t().tools.encode.placeholder}
-        spellcheck={false}
-        style={textareaStyle}></textarea>
-    </div>
+    <TextAreaField
+      id="encode-input"
+      bind:value={input}
+      label={t().common.inputPlaceholder}
+      placeholder={t().tools.encode.placeholder}
+      maxlength={100_000}
+      status={error ? "error" : "idle"}
+      hint={error || undefined}
+      showMascot
+    />
 
     <!-- Buttons -->
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -191,15 +203,6 @@
         {t().common.clear}
       </button>
     </div>
-
-    {#if error}
-      <p
-        role="alert"
-        style="color: var(--color-error); font-size: 0.875rem; margin: 0; font-family: var(--font-mono);"
-      >
-        {error}
-      </p>
-    {/if}
 
     <!-- Output -->
     {#if hasResult}

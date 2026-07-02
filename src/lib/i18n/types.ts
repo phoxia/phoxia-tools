@@ -171,6 +171,7 @@ export type LocaleShape = {
       diceQty: string;
       roll: string;
       emptyList: string;
+      rangeHint: string;
     };
     httpStatus: {
       name: string;
@@ -386,7 +387,6 @@ export type LocaleShape = {
     error: string;
     inputPlaceholder: string;
     outputPlaceholder: string;
-    inputTooLarge: string;
     tocLabel: string;
     valid: string;
     invalid: string;
@@ -402,4 +402,10 @@ export type LocaleShape = {
   };
   privacyPage: { title: string };
   termsPage: { title: string };
+  copyDetect: {
+    prompt: string;
+    openInTool: string;
+    dismiss: string;
+    optOut: string;
+  };
 };

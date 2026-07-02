@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { page } from "$app/state";
   import { t, cycleLang, getLang } from "$lib/i18n/i18n.svelte";
   import { cycleMode, getModePref } from "$lib/theme/theme.svelte";
@@ -9,6 +10,22 @@
 
   let modePref = $state(getModePref());
   let lang = $state(getLang());
+  let scrolled = $state(false);
+
+  onMount(() => {
+    let ticking = false;
+    function handleScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        scrolled = window.scrollY > 16;
+        ticking = false;
+      });
+    }
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   function handleMode() {
     cycleMode();
@@ -38,7 +55,7 @@
 
 <a href="#main-content" class="skip-link">{locale.nav.skipToContent}</a>
 
-<header class="nav-header">
+<header class="nav-header" class:scrolled>
   <nav class="nav-inner" aria-label={locale.nav.mainNavAria}>
     <a href="/" class="nav-logo" aria-label={locale.aria.homeLogo}>
       <img src="/brand/symbol.png" alt="" width="28" height="28" aria-hidden="true" />
@@ -111,10 +128,21 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s ease;
   }
 
   :global([data-mode="light"]) .nav-header {
     background: rgba(250, 249, 245, 0.85);
+  }
+
+  .nav-header.scrolled {
+    background: rgba(13, 13, 20, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  :global([data-mode="light"]) .nav-header.scrolled {
+    background: rgba(250, 249, 245, 0.95);
   }
 
   .nav-inner {

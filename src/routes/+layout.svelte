@@ -4,6 +4,7 @@
   import Nav from "$lib/components/Nav.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import ConsentBanner from "$lib/components/ConsentBanner.svelte";
+  import CopyDetectTooltip from "$lib/components/CopyDetectTooltip.svelte";
   import { initTheme } from "$lib/theme/theme.svelte";
   import { initClientLang } from "$lib/i18n/i18n.svelte";
   import {
@@ -170,6 +171,7 @@
 <div class="page-shell">
   <Nav />
   <ConsentBanner />
+  <CopyDetectTooltip />
 
   <main class="main-content">
     {@render children()}

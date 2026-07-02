@@ -1,5 +1,6 @@
 <script lang="ts">
   import ToolLayout from "$lib/components/ToolLayout.svelte";
+  import NumberField from "$lib/components/NumberField.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
@@ -108,7 +109,7 @@
     "width: 100%; min-height: 120px; resize: vertical; font-family: var(--font-mono); font-size: 0.85rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); padding: 0.75rem; box-sizing: border-box;";
 
   const btnPrimary =
-    "background: var(--color-accent); color: #050508; border: none; border-radius: var(--radius); padding: 0.5rem 1rem; font-weight: 600; cursor: pointer; font-size: 0.875rem;";
+    "align-self: flex-start; background: var(--color-accent); color: #050508; border: none; border-radius: var(--radius); padding: 0.5rem 1rem; font-weight: 600; cursor: pointer; font-size: 0.875rem;";
 </script>
 
 <ToolLayout toolId="random" title={t().tools.random.name} description={t().tools.random.desc}>
@@ -196,27 +197,39 @@
     <!-- === NUMBERS === -->
     {#if activeTab === "numbers"}
       <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: flex-end;">
-        <label
-          style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--color-text-muted);"
-          >{t().tools.random.min}
-          <input type="number" bind:value={numMin} style="width: 80px; {inputStyle}" />
-        </label>
-        <label
-          style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--color-text-muted);"
-          >{t().tools.random.max}
-          <input type="number" bind:value={numMax} style="width: 80px; {inputStyle}" />
-        </label>
-        <label
-          style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--color-text-muted);"
-          >{t().common.count}
-          <input
-            type="number"
-            bind:value={numCount}
-            min="1"
-            max="1000"
-            style="width: 80px; {inputStyle}"
-          />
-        </label>
+        <NumberField
+          id="random-min"
+          bind:value={numMin}
+          label={t().tools.random.min}
+          min={-1_000_000}
+          max={1_000_000}
+          width="80px"
+          status="info"
+          hint={t().tools.random.rangeHint.replace("{min}", "-1000000").replace("{max}", "1000000")}
+          showMascot
+        />
+        <NumberField
+          id="random-max"
+          bind:value={numMax}
+          label={t().tools.random.max}
+          min={-1_000_000}
+          max={1_000_000}
+          width="80px"
+          status="info"
+          hint={t().tools.random.rangeHint.replace("{min}", "-1000000").replace("{max}", "1000000")}
+          showMascot
+        />
+        <NumberField
+          id="random-count"
+          bind:value={numCount}
+          label={t().common.count}
+          min={1}
+          max={1000}
+          width="80px"
+          status="info"
+          hint={t().tools.random.rangeHint.replace("{min}", "1").replace("{max}", "1000")}
+          showMascot
+        />
         <label
           style="display: flex; align-items: center; gap: 0.375rem; font-size: 0.8rem; color: var(--color-text-muted); cursor: pointer; padding-bottom: 0.5rem;"
         >
@@ -249,17 +262,17 @@
             {/each}
           </select>
         </label>
-        <label
-          style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--color-text-muted);"
-          >{t().tools.random.diceQty}
-          <input
-            type="number"
-            bind:value={diceQty}
-            min="1"
-            max="100"
-            style="width: 80px; {inputStyle}"
-          />
-        </label>
+        <NumberField
+          id="random-dice-qty"
+          bind:value={diceQty}
+          label={t().tools.random.diceQty}
+          min={1}
+          max={100}
+          width="80px"
+          status="info"
+          hint={t().tools.random.rangeHint.replace("{min}", "1").replace("{max}", "100")}
+          showMascot
+        />
       </div>
       <button onclick={diceRun} style={btnPrimary}>{t().tools.random.roll}</button>
       {#if diceResults.length > 0}

@@ -178,6 +178,7 @@ const ptBR: LocaleShape = {
       diceQty: "Qtd",
       roll: "Jogar",
       emptyList: "Adicione pelo menos um item à lista.",
+      rangeHint: "Entre {min} e {max}.",
     },
     httpStatus: {
       name: "Status HTTP",
@@ -704,7 +705,6 @@ const ptBR: LocaleShape = {
     error: "Erro",
     inputPlaceholder: "Cole o input aqui…",
     outputPlaceholder: "O resultado aparecerá aqui",
-    inputTooLarge: "Input excede o limite de 500 KB.",
     tocLabel: "Conteúdo",
     valid: "Válido",
     invalid: "Inválido",
@@ -720,6 +720,12 @@ const ptBR: LocaleShape = {
   },
   privacyPage: { title: "Política de Privacidade" },
   termsPage: { title: "Termos de Uso" },
+  copyDetect: {
+    prompt: "Parece Base64. Quer decodificar?",
+    openInTool: "Abrir na ferramenta completa",
+    dismiss: "Fechar",
+    optOut: "Não perguntar novamente",
+  },
 };
 
 export default ptBR;

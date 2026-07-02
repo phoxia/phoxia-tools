@@ -1,5 +1,6 @@
 <script lang="ts">
   import ToolLayout from "$lib/components/ToolLayout.svelte";
+  import TextAreaField from "$lib/components/TextAreaField.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
@@ -51,26 +52,14 @@
 
 <ToolLayout toolId="hash" title={t().tools.hash.name} description={t().tools.hash.desc}>
   <div style="display: flex; flex-direction: column; gap: 1rem;">
-    <div>
-      <label
-        for="hash-input"
-        style="display: block; font-size: 0.85rem; margin-bottom: 0.375rem; color: var(--color-text-muted);"
-      >
-        {t().common.inputPlaceholder}
-      </label>
-      <textarea
-        id="hash-input"
-        bind:value={input}
-        placeholder={t().tools.hash.placeholder}
-        spellcheck={false}
-        style="
-					width: 100%; min-height: 120px; resize: vertical;
-					font-family: var(--font-mono); font-size: 0.85rem;
-					background: var(--color-surface); border: 1px solid var(--color-border);
-					border-radius: var(--radius); color: var(--color-text);
-					padding: 0.75rem; box-sizing: border-box;
-				"></textarea>
-    </div>
+    <TextAreaField
+      id="hash-input"
+      bind:value={input}
+      label={t().common.inputPlaceholder}
+      placeholder={t().tools.hash.placeholder}
+      maxlength={500_000}
+      minHeight="120px"
+    />
 
     <div style="display: flex; gap: 0.5rem;">
       <button
