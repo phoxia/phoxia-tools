@@ -1,136 +1,92 @@
 <script lang="ts">
   import Lux from "$lib/components/Lux.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
-  import { looksLikeBase64, isPrintableText, COPY_DETECT_PREFILL_KEY } from "$lib/copyDetect";
-  import { decodeBase64 } from "../../routes/tools/encode/logic";
+  import { COPY_DETECT_PREFILL_KEY, type Format } from "$lib/copyDetect";
+  import {
+    tooltipVisible,
+    tooltipLuxState,
+    tooltipMatch,
+    tooltipOriginalText,
+    dismissTooltip,
+  } from "./clipboardTooltipState.svelte";
 
-  const OPT_OUT_KEY = "phoxia-copy-detect-disabled";
-  const AUTO_HIDE_MS = 8000;
-
-  let visible = $state(false);
-  let luxState = $state<"thinking" | "happy">("thinking");
-  let decoded = $state("");
-  let originalText = $state("");
-  let pos = $state({ top: 0, left: 0 });
-  let lastShownText = $state("");
   let boxEl = $state<HTMLElement | null>(null);
 
-  let hideTimer: ReturnType<typeof setTimeout> | undefined;
-  let happyTimer: ReturnType<typeof setTimeout> | undefined;
-
-  // Range.getBoundingClientRect() collapses to (0,0,0,0) when the selection lives
-  // inside a <textarea>/<input> — native form controls don't expose their internal
-  // text layout to Range geometry, even though sel.toString() still returns the text.
-  // Since most copyable content on this site lives in output/input textareas, fall
-  // back to the focused element's own box so the tooltip doesn't pin to the page corner.
-  function getAnchorRect(sel: Selection | null): DOMRect | null {
-    if (sel && sel.rangeCount > 0) {
-      try {
-        const rect = sel.getRangeAt(0).getBoundingClientRect();
-        if (rect.width > 0 || rect.height > 0 || rect.top > 0 || rect.left > 0) {
-          return rect;
-        }
-      } catch {
-        // fall through to activeElement fallback
-      }
-    }
-    const active = document.activeElement;
-    if (active instanceof HTMLElement && active !== document.body) {
-      return active.getBoundingClientRect();
-    }
-    return null;
-  }
-
-  function handleCopy() {
-    if (typeof localStorage !== "undefined" && localStorage.getItem(OPT_OUT_KEY) === "1") return;
-
-    const sel = window.getSelection();
-    const text = sel?.toString().trim() ?? "";
-    if (!text || text === lastShownText) return;
-    if (!looksLikeBase64(text)) return;
-
-    const r = decodeBase64(text);
-    if (!r.ok || !isPrintableText(r.value)) return;
-
-    const rect = getAnchorRect(sel);
-    if (!rect) return;
-
-    pos = { top: rect.bottom + window.scrollY + 8, left: rect.left + window.scrollX };
-    decoded = r.value.slice(0, 200);
-    originalText = text;
-    lastShownText = text;
-    luxState = "thinking";
-    visible = true;
-
-    clearTimeout(hideTimer);
-    clearTimeout(happyTimer);
-    happyTimer = setTimeout(() => (luxState = "happy"), 400);
-    hideTimer = setTimeout(() => (visible = false), AUTO_HIDE_MS);
-  }
-
-  function dismiss() {
-    visible = false;
-    clearTimeout(hideTimer);
-    clearTimeout(happyTimer);
-  }
-
-  function optOut() {
-    localStorage.setItem(OPT_OUT_KEY, "1");
-    dismiss();
-  }
-
+  // Plain hard navigation (not SvelteKit's goto()) — this button lives inside
+  // a reactive {#if} that unmounts itself on dismiss, and every SPA-router
+  // approach tried here (native <a href>, then goto()) ended up silently
+  // cancelled by that same unmount. sessionStorage survives a full navigation
+  // within the same tab, so a hard redirect is simple and always works.
   function openInTool() {
-    sessionStorage.setItem(COPY_DETECT_PREFILL_KEY, originalText);
-    dismiss();
+    const route = tooltipMatch()?.route;
+    if (!route) return;
+    sessionStorage.setItem(COPY_DETECT_PREFILL_KEY, tooltipOriginalText());
+    window.location.href = route;
   }
 
   function handleKeydown(e: KeyboardEvent) {
-    if (e.key === "Escape" && visible) dismiss();
+    if (e.key === "Escape" && tooltipVisible()) dismissTooltip();
   }
 
   function handlePointerDown(e: PointerEvent) {
-    if (visible && boxEl && !boxEl.contains(e.target as Node)) dismiss();
+    if (tooltipVisible() && boxEl && !boxEl.contains(e.target as Node)) dismissTooltip();
   }
+
+  function promptFor(format: Format): string {
+    switch (format) {
+      case "jwt":
+        return t().copyDetect.promptJwt;
+      case "curl":
+        return t().copyDetect.promptCurl;
+      case "cipher":
+        return t().copyDetect.promptCipher;
+      case "uuid":
+        return t().copyDetect.promptUuid;
+      default:
+        return t().copyDetect.promptBase64;
+    }
+  }
+
+  const match = $derived(tooltipMatch());
 </script>
 
-<svelte:window oncopy={handleCopy} onkeydown={handleKeydown} onpointerdown={handlePointerDown} />
+<svelte:window onkeydown={handleKeydown} onpointerdown={handlePointerDown} />
 
-{#if visible}
-  <div
-    bind:this={boxEl}
-    role="dialog"
-    aria-label={t().copyDetect.prompt}
-    class="copy-tooltip"
-    style="top: {pos.top}px; left: {pos.left}px;"
-  >
+{#if tooltipVisible() && match}
+  <div bind:this={boxEl} role="dialog" aria-label={promptFor(match.format)} class="copy-tooltip">
     <div class="copy-tooltip-header">
-      <Lux state={luxState} size={40} float={false} label="" />
+      <Lux state={tooltipLuxState()} size={52} float={false} label="" />
       <div class="copy-tooltip-body">
-        <p class="copy-tooltip-prompt">{t().copyDetect.prompt}</p>
-        <code class="copy-tooltip-preview">{decoded}</code>
+        <p class="copy-tooltip-prompt">{promptFor(match.format)}</p>
+        <code class="copy-tooltip-preview">{match.preview}</code>
       </div>
-      <button class="copy-tooltip-close" onclick={dismiss} aria-label={t().copyDetect.dismiss}>
+      <button
+        class="copy-tooltip-close"
+        onclick={dismissTooltip}
+        aria-label={t().copyDetect.dismiss}
+      >
         &times;
       </button>
     </div>
     <div class="copy-tooltip-actions">
-      <a href="/tools/encode?tab=base64" class="copy-tooltip-link" onclick={openInTool}>
+      <button class="copy-tooltip-link" onclick={openInTool}>
         {t().copyDetect.openInTool}
-      </a>
-      <button class="copy-tooltip-optout" onclick={optOut}>{t().copyDetect.optOut}</button>
+      </button>
     </div>
   </div>
 {/if}
 
 <style>
   .copy-tooltip {
-    position: absolute;
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
     z-index: 200;
-    max-width: 320px;
+    max-width: 400px;
     background: var(--color-surface-raised);
     border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius);
-    padding: 0.75rem;
+    border-radius: var(--radius-lg);
+    padding: 1.125rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
 
@@ -154,7 +110,7 @@
   .copy-tooltip-header {
     display: flex;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.75rem;
   }
 
   .copy-tooltip-body {
@@ -163,22 +119,22 @@
   }
 
   .copy-tooltip-prompt {
-    margin: 0 0 0.375rem;
-    font-size: 0.8rem;
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
     color: var(--color-text);
   }
 
   .copy-tooltip-preview {
     display: block;
-    max-height: 80px;
+    max-height: 110px;
     overflow: auto;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.82rem;
     color: var(--color-text-muted);
     word-break: break-all;
     background: var(--color-surface);
     border-radius: var(--radius-sm);
-    padding: 0.375rem 0.5rem;
+    padding: 0.5rem 0.625rem;
   }
 
   .copy-tooltip-close {
@@ -186,7 +142,7 @@
     border: none;
     color: var(--color-text-faint);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.15rem;
     line-height: 1;
     padding: 0;
     min-height: unset;
@@ -194,30 +150,22 @@
 
   .copy-tooltip-actions {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 0.625rem;
+    margin-top: 0.75rem;
   }
 
   .copy-tooltip-link {
-    font-size: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 0.82rem;
     color: var(--color-accent);
     text-decoration: none;
+    cursor: pointer;
+    padding: 0;
     min-height: unset;
   }
 
   .copy-tooltip-link:hover {
     text-decoration: underline;
-  }
-
-  .copy-tooltip-optout {
-    background: none;
-    border: none;
-    color: var(--color-text-faint);
-    cursor: pointer;
-    font-size: 0.7rem;
-    text-decoration: underline;
-    padding: 0;
-    min-height: unset;
   }
 </style>

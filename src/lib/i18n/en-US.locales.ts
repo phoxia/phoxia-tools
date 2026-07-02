@@ -56,6 +56,10 @@ const en: LocaleShape = {
       desc: "Generate UUIDs v4.",
       labelCount: "Count",
       generatedCount: "{n} UUIDs",
+      validateLabel: "Validate an existing UUID",
+      validatePlaceholder: "Paste a UUID to check…",
+      validValue: "Valid UUID",
+      invalidValue: "Not a valid UUID",
     },
     timestamp: {
       name: "Unix Timestamp",
@@ -712,10 +716,20 @@ const en: LocaleShape = {
   privacyPage: { title: "Privacy Policy" },
   termsPage: { title: "Terms of Use" },
   copyDetect: {
-    prompt: "Looks like Base64. Want to decode it?",
-    openInTool: "Open in full tool",
+    promptBase64: "Looks like Base64. Want to decode it?",
+    promptJwt: "Looks like a JWT. Want to inspect it?",
+    promptCurl: "Looks like a curl command. Want to convert it?",
+    promptCipher: "Looks like an encrypted payload from this site. Want to decrypt it?",
+    promptUuid: "Looks like a UUID. Want to validate it?",
+    openInTool: "Open in tool",
     dismiss: "Dismiss",
-    optOut: "Don't ask again",
+  },
+  clipboardWatcher: {
+    title: "Want Lux to watch your clipboard?",
+    body: "When something you copy looks like Base64, a JWT, a curl command, and so on, Lux can offer to open it in the right tool. Everything stays in your browser, nothing is ever sent anywhere.",
+    accept: "Yes, enable it",
+    decline: "Not now",
+    settingsLink: "Clipboard settings",
   },
 };
 

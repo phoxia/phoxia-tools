@@ -1,10 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import Nav from "$lib/components/Nav.svelte";
-  import Footer from "$lib/components/Footer.svelte";
 </script>
-
-<Nav />
 
 <main
   style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; padding: 2rem; text-align: center;"
@@ -29,5 +25,3 @@
     Back to tools
   </a>
 </main>
-
-<Footer />

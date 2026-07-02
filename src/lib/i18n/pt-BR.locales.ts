@@ -56,6 +56,10 @@ const ptBR: LocaleShape = {
       desc: "Gera UUIDs v4.",
       labelCount: "Quantidade",
       generatedCount: "{n} UUIDs",
+      validateLabel: "Validar um UUID existente",
+      validatePlaceholder: "Cole um UUID para verificar…",
+      validValue: "UUID válido",
+      invalidValue: "Não é um UUID válido",
     },
     timestamp: {
       name: "Timestamp Unix",
@@ -721,10 +725,20 @@ const ptBR: LocaleShape = {
   privacyPage: { title: "Política de Privacidade" },
   termsPage: { title: "Termos de Uso" },
   copyDetect: {
-    prompt: "Parece Base64. Quer decodificar?",
-    openInTool: "Abrir na ferramenta completa",
+    promptBase64: "Parece Base64. Quer decodificar?",
+    promptJwt: "Parece um JWT. Quer inspecionar?",
+    promptCurl: "Parece um comando curl. Quer converter?",
+    promptCipher: "Parece um payload criptografado deste site. Quer decifrar?",
+    promptUuid: "Parece um UUID. Quer validar?",
+    openInTool: "Abrir na ferramenta",
     dismiss: "Fechar",
-    optOut: "Não perguntar novamente",
+  },
+  clipboardWatcher: {
+    title: "Quer que o Lux observe sua área de transferência?",
+    body: "Quando algo que você copia parece Base64, um JWT, um comando curl e afins, o Lux pode oferecer abrir na ferramenta certa. Tudo fica no seu navegador, nada é enviado pra lugar nenhum.",
+    accept: "Sim, ativar",
+    decline: "Agora não",
+    settingsLink: "Configurações de clipboard",
   },
 };
 

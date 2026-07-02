@@ -1,6 +1,7 @@
 <script lang="ts">
   import { t } from "$lib/i18n/i18n.svelte";
   import { revoke } from "$lib/consent/consent.svelte";
+  import { revokeClipboardConsent } from "$lib/consent/clipboardConsent.svelte";
 
   let locale = $derived(t());
 </script>
@@ -42,6 +43,10 @@
       <div class="footer-bottom-right">
         <button class="cookie-btn" onclick={revoke}>
           {locale.consent.revoke}
+        </button>
+        <span class="footer-bottom-sep" aria-hidden="true">&middot;</span>
+        <button class="cookie-btn" onclick={revokeClipboardConsent}>
+          {locale.clipboardWatcher.settingsLink}
         </button>
         <span class="footer-bottom-sep" aria-hidden="true">&middot;</span>
         <a

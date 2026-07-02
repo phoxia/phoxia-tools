@@ -1,12 +1,23 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { COPY_DETECT_PREFILL_KEY } from "$lib/copyDetect";
   import { decodeJwt, isExpired, formatExp } from "./logic";
 
   let input = $state("");
   let result = $state<ReturnType<typeof decodeJwt> | null>(null);
+
+  onMount(() => {
+    const prefill = sessionStorage.getItem(COPY_DETECT_PREFILL_KEY);
+    if (prefill) {
+      input = prefill;
+      sessionStorage.removeItem(COPY_DETECT_PREFILL_KEY);
+      decode();
+    }
+  });
 
   const EXAMPLE =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";

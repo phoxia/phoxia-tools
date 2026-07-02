@@ -55,6 +55,10 @@ export type LocaleShape = {
       desc: string;
       labelCount: string;
       generatedCount: string;
+      validateLabel: string;
+      validatePlaceholder: string;
+      validValue: string;
+      invalidValue: string;
     };
     timestamp: {
       name: string;
@@ -403,9 +407,19 @@ export type LocaleShape = {
   privacyPage: { title: string };
   termsPage: { title: string };
   copyDetect: {
-    prompt: string;
+    promptBase64: string;
+    promptJwt: string;
+    promptCurl: string;
+    promptCipher: string;
+    promptUuid: string;
     openInTool: string;
     dismiss: string;
-    optOut: string;
+  };
+  clipboardWatcher: {
+    title: string;
+    body: string;
+    accept: string;
+    decline: string;
+    settingsLink: string;
   };
 };

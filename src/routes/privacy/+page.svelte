@@ -23,6 +23,7 @@
       title: "2. What we collect",
       content:
         "All tools run client-side. Your inputs (JWT tokens, passwords, CPFs, JSON, etc.) are never sent to any server.\n\n" +
+        "If you opt in to the clipboard watcher, your clipboard content is scanned in your browser only, to check whether it matches a format one of our tools can help with (Base64, JWT, curl, etc.). This content is never transmitted anywhere, and only a small non-reversible hash of what you've already been shown is kept, so we don't ask again about the same value.\n\n" +
         "If you accept cookies, we collect:\n\n" +
         "Usage analytics via Google Analytics 4: which tools you use, time on page, traffic source. Your inputs are never collected.\n\n" +
         "Advertising data via Google AdSense: Google may use cookies to show relevant ads based on your browsing activity.\n\n" +
@@ -53,6 +54,18 @@
         "  Purpose: Stores your consent preference\n" +
         "  Category: Essential\n" +
         "  Retention: Until you clear browser storage or revoke consent\n\n" +
+        "phoxia-clipboard-consent\n" +
+        "  Type: localStorage (not a cookie)\n" +
+        "  Provider: Phoxia (first-party)\n" +
+        "  Purpose: Stores whether you've opted in to the clipboard watcher feature\n" +
+        "  Category: Essential\n" +
+        '  Retention: Until you clear browser storage or revoke via "Clipboard settings"\n\n' +
+        "phoxia-clipboard-seen\n" +
+        "  Type: sessionStorage (not a cookie)\n" +
+        "  Provider: Phoxia (first-party)\n" +
+        "  Purpose: Remembers a non-reversible hash of clipboard values already shown, so the same value isn't suggested twice in one browsing session\n" +
+        "  Category: Essential\n" +
+        "  Retention: Cleared when you close the browser tab\n\n" +
         "phoxia-lang\n" +
         "  Type: localStorage (not a cookie)\n" +
         "  Provider: Phoxia (first-party)\n" +
@@ -167,6 +180,7 @@
       title: "2. O que coletamos",
       content:
         "Todas as ferramentas rodam no lado do cliente. Seus inputs (tokens JWT, senhas, CPFs, JSON, etc.) nunca são enviados a nenhum servidor.\n\n" +
+        "Se você optar pelo observador de área de transferência, o conteúdo copiado é verificado apenas no seu navegador, para checar se corresponde a um formato que alguma das nossas ferramentas reconhece (Base64, JWT, curl, etc.). Esse conteúdo nunca é transmitido, e apenas um hash não reversível do que já foi mostrado a você é mantido, para não perguntarmos de novo sobre o mesmo valor.\n\n" +
         "Se você aceitar cookies, coletamos:\n\n" +
         "Analytics de uso via Google Analytics 4: quais ferramentas você usa, tempo na página, fonte de tráfego. Seus inputs nunca são coletados.\n\n" +
         "Dados de publicidade via Google AdSense: o Google pode usar cookies para exibir anúncios relevantes com base na sua atividade de navegação.\n\n" +
@@ -197,6 +211,18 @@
         "  Finalidade: Armazena sua preferência de consentimento\n" +
         "  Categoria: Essencial\n" +
         "  Retenção: Até você limpar o armazenamento ou revogar consentimento\n\n" +
+        "phoxia-clipboard-consent\n" +
+        "  Tipo: localStorage (não é um cookie)\n" +
+        "  Fornecedor: Phoxia (primeira parte)\n" +
+        "  Finalidade: Armazena se você optou pelo recurso de observação da área de transferência\n" +
+        "  Categoria: Essencial\n" +
+        '  Retenção: Até você limpar o armazenamento ou revogar via "Configurações de clipboard"\n\n' +
+        "phoxia-clipboard-seen\n" +
+        "  Tipo: sessionStorage (não é um cookie)\n" +
+        "  Fornecedor: Phoxia (primeira parte)\n" +
+        "  Finalidade: Lembra um hash não reversível dos valores de clipboard já mostrados, para não sugerir o mesmo valor duas vezes na mesma sessão\n" +
+        "  Categoria: Essencial\n" +
+        "  Retenção: Apagado ao fechar a aba do navegador\n\n" +
         "phoxia-lang\n" +
         "  Tipo: localStorage (não é um cookie)\n" +
         "  Fornecedor: Phoxia (primeira parte)\n" +
@@ -299,8 +325,8 @@
   const sections = $derived(lang === "pt-BR" ? ptSections : enSections);
   const lastUpdated = $derived(
     lang === "pt-BR"
-      ? "Última atualização: 1 de julho de 2026 · Versão 1.1"
-      : "Last updated: July 1, 2026 · Version 1.1"
+      ? "Última atualização: 2 de julho de 2026 · Versão 1.2"
+      : "Last updated: July 2, 2026 · Version 1.2"
   );
 </script>
 

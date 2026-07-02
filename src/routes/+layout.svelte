@@ -5,6 +5,8 @@
   import Footer from "$lib/components/Footer.svelte";
   import ConsentBanner from "$lib/components/ConsentBanner.svelte";
   import CopyDetectTooltip from "$lib/components/CopyDetectTooltip.svelte";
+  import ClipboardConsentPrompt from "$lib/components/ClipboardConsentPrompt.svelte";
+  import ClipboardWatcher from "$lib/components/ClipboardWatcher.svelte";
   import { initTheme } from "$lib/theme/theme.svelte";
   import { initClientLang } from "$lib/i18n/i18n.svelte";
   import {
@@ -13,6 +15,7 @@
     hasAnalyticsConsent,
     hasAdvertisingConsent,
   } from "$lib/consent/consent.svelte";
+  import { initClipboardConsent } from "$lib/consent/clipboardConsent.svelte";
   import { getAnnouncement, clearAnnouncement } from "$lib/announce.svelte";
 
   let { children } = $props();
@@ -23,6 +26,7 @@
     initTheme();
     initClientLang();
     initConsent();
+    initClipboardConsent();
     const ann = getAnnouncement();
     if (ann) {
       const t = setTimeout(() => clearAnnouncement(), 3000);
@@ -171,6 +175,8 @@
 <div class="page-shell">
   <Nav />
   <ConsentBanner />
+  <ClipboardConsentPrompt />
+  <ClipboardWatcher />
   <CopyDetectTooltip />
 
   <main class="main-content">

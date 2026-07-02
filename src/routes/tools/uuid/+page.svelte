@@ -1,14 +1,27 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
-  import { generateUuidV4 } from "./logic";
+  import { COPY_DETECT_PREFILL_KEY } from "$lib/copyDetect";
+  import { generateUuidV4, isValidUuid } from "./logic";
 
   let count = $state(1);
   let uuids = $state<string[]>([]);
   let copied = $state(false);
   let loading = $state(false);
+  let validateInput = $state("");
+
+  const isValid = $derived(validateInput.trim() ? isValidUuid(validateInput.trim()) : null);
+
+  onMount(() => {
+    const prefill = sessionStorage.getItem(COPY_DETECT_PREFILL_KEY);
+    if (prefill) {
+      validateInput = prefill;
+      sessionStorage.removeItem(COPY_DETECT_PREFILL_KEY);
+    }
+  });
 
   function generate() {
     const n = Math.max(1, Math.min(100, Math.floor(count) || 1));
@@ -90,5 +103,38 @@
         </div>
       </div>
     {/if}
+
+    <hr style="border: none; border-top: 1px solid var(--color-border); width: 100%;" />
+
+    <div>
+      <label
+        for="uuid-validate"
+        style="display: block; font-size: 0.85rem; margin-bottom: 0.375rem; color: var(--color-text-muted);"
+      >
+        {t().tools.uuid.validateLabel}
+      </label>
+      <input
+        id="uuid-validate"
+        type="text"
+        bind:value={validateInput}
+        placeholder={t().tools.uuid.validatePlaceholder}
+        spellcheck={false}
+        style="
+					width: 100%; box-sizing: border-box; font-family: var(--font-mono); font-size: 0.875rem;
+					background: var(--color-surface); border: 1px solid var(--color-border);
+					border-radius: var(--radius); color: var(--color-text); padding: 0.5rem 0.75rem;
+				"
+      />
+      {#if isValid !== null}
+        <p
+          role={isValid ? undefined : "alert"}
+          style="margin: 0.375rem 0 0; font-size: 0.8rem; color: {isValid
+            ? 'var(--color-success)'
+            : 'var(--color-error)'};"
+        >
+          {isValid ? t().tools.uuid.validValue : t().tools.uuid.invalidValue}
+        </p>
+      {/if}
+    </div>
   </div>
 </ToolLayout>

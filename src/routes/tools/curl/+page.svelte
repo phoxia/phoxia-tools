@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { COPY_DETECT_PREFILL_KEY } from "$lib/copyDetect";
   import { parseCurl } from "./logic";
 
   const EXAMPLE = `curl -X POST https://api.example.com/users \\
@@ -13,6 +15,14 @@
   let input = $state(EXAMPLE);
   let tab = $state<"fetch" | "axios">("fetch");
   let copied = $state(false);
+
+  onMount(() => {
+    const prefill = sessionStorage.getItem(COPY_DETECT_PREFILL_KEY);
+    if (prefill) {
+      input = prefill;
+      sessionStorage.removeItem(COPY_DETECT_PREFILL_KEY);
+    }
+  });
 
   const result = $derived.by(() => {
     if (!input.trim()) return null;

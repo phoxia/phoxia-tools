@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import TextField from "$lib/components/TextField.svelte";
   import TextAreaField from "$lib/components/TextAreaField.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { COPY_DETECT_PREFILL_KEY } from "$lib/copyDetect";
   import { encrypt, decrypt } from "./logic";
 
   let plaintext = $state("");
@@ -14,6 +16,16 @@
   let output = $state("");
   let error = $state("");
   let loading = $state(false);
+
+  onMount(() => {
+    // A "v1:"-prefixed clipboard match is a payload to decrypt, not encrypt —
+    // prefill the decrypt input, not the plaintext field.
+    const prefill = sessionStorage.getItem(COPY_DETECT_PREFILL_KEY);
+    if (prefill) {
+      ciphertext = prefill;
+      sessionStorage.removeItem(COPY_DETECT_PREFILL_KEY);
+    }
+  });
 
   const passwordMismatch = $derived(error === t().tools.cipher.passwordMismatch);
 
