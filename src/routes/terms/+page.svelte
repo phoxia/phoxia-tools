@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LegalLayout from '$lib/components/LegalLayout.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { t, getLang } from '$lib/i18n/i18n.svelte';
 	import { Scale } from '$lib/icons';
 
@@ -193,17 +194,11 @@
 	);
 </script>
 
-<svelte:head>
-	<title>{t().seo.siteName} • {t().termsPage.title}</title>
-	<meta name="description" content={t().seo.termsDescription} />
-	<meta property="og:title" content={t().seo.siteName + ' • ' + t().termsPage.title} />
-	<meta property="og:description" content={t().seo.termsDescription} />
-	<meta property="og:url" content="https://tools.phoxia.org/terms" />
-	<meta property="og:type" content="website" />
-	<meta name="twitter:title" content={t().seo.siteName + ' • ' + t().termsPage.title} />
-	<meta name="twitter:description" content={t().seo.termsDescription} />
-	<link rel="canonical" href="https://tools.phoxia.org/terms" />
-</svelte:head>
+<Seo
+	title={t().seo.siteName + ' • ' + t().termsPage.title}
+	description={t().seo.termsDescription}
+	path="/terms"
+/>
 
 <LegalLayout
 	title={t().termsPage.title}

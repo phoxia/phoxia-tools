@@ -4,6 +4,7 @@
 	import { t } from '$lib/i18n/i18n.svelte';
 	import { getToolsByCategory } from '$lib/tools/registry';
 	import { sidebarState } from '$lib/sidebar.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import type { Category } from '$lib/tools/registry';
 	import type { LocaleShape } from '$lib/i18n/types';
 
@@ -58,17 +59,11 @@
 
 </script>
 
-<svelte:head>
-		<title>{t().seo.siteName} • {title}</title>
-		<meta name="description" content={description} />
-		<meta property="og:title" content="{t().seo.siteName} • {title}" />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content="https://tools.phoxia.org{route ?? `/tools/${toolId}`}" />
-		<meta property="og:type" content="website" />
-		<meta name="twitter:title" content="{t().seo.siteName} • {title}" />
-		<meta name="twitter:description" content={description} />
-		<link rel="canonical" href="https://tools.phoxia.org{route ?? `/tools/${toolId}`}" />
-	</svelte:head>
+<Seo
+		title="{t().seo.siteName} • {title}"
+		{description}
+		path={route ?? `/tools/${toolId}`}
+	/>
 
 	<svelte:window onkeydown={handleSidebarKeydown} />
 

@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import ToolLayout from '$lib/components/ToolLayout.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { t } from '$lib/i18n/i18n.svelte';
 	import { copyToClipboard } from '$lib/clipboard.svelte';
 	import { trackToolUsed } from '$lib/analytics/analytics';
@@ -102,23 +103,16 @@
 		return locale.tools.faker.desc;
 	});
 
-	const canonicalUrl = $derived.by(() => {
-		let url = 'https://tools.phoxia.org/tools/faker';
-		if (seoField) url += `?field=${seoField}`;
-		if (seoField && isDocField) return url;
-		if (seoField && selectedCountry) url += `&country=${selectedCountry.id}`;
-		return url;
+	const seoPath = $derived.by(() => {
+		let path = '/tools/faker';
+		if (seoField) path += `?field=${seoField}`;
+		if (seoField && isDocField) return path;
+		if (seoField && selectedCountry) path += `&country=${selectedCountry.id}`;
+		return path;
 	});
 </script>
 
-<svelte:head>
-	<title>{seoTitle}</title>
-	<meta name="description" content={seoDesc} />
-	<meta property="og:title" content={seoTitle} />
-	<meta property="og:description" content={seoDesc} />
-	<meta property="og:url" content={canonicalUrl} />
-	<link rel="canonical" href={canonicalUrl} />
-</svelte:head>
+<Seo title={seoTitle} description={seoDesc} path={seoPath} />
 
 <ToolLayout toolId="faker" title={t().tools.faker.name} description={t().tools.faker.desc}>
 	<div style="display: flex; flex-direction: column; gap: 1.25rem;">

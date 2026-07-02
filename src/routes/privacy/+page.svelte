@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LegalLayout from '$lib/components/LegalLayout.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { t, getLang } from '$lib/i18n/i18n.svelte';
 	import { ShieldCheck } from '$lib/icons';
 
@@ -303,17 +304,11 @@
 	);
 </script>
 
-<svelte:head>
-	<title>{t().seo.siteName} • {t().privacyPage.title}</title>
-	<meta name="description" content={t().seo.privacyDescription} />
-	<meta property="og:title" content={t().seo.siteName + ' • ' + t().privacyPage.title} />
-	<meta property="og:description" content={t().seo.privacyDescription} />
-	<meta property="og:url" content="https://tools.phoxia.org/privacy" />
-	<meta property="og:type" content="website" />
-	<meta name="twitter:title" content={t().seo.siteName + ' • ' + t().privacyPage.title} />
-	<meta name="twitter:description" content={t().seo.privacyDescription} />
-	<link rel="canonical" href="https://tools.phoxia.org/privacy" />
-</svelte:head>
+<Seo
+	title={t().seo.siteName + ' • ' + t().privacyPage.title}
+	description={t().seo.privacyDescription}
+	path="/privacy"
+/>
 
 <LegalLayout
 	title={t().privacyPage.title}

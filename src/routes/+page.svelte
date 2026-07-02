@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/i18n.svelte';
 	import { getToolsByCategory } from '$lib/tools/registry';
+	import Seo from '$lib/components/Seo.svelte';
 	import type { Category } from '$lib/tools/registry';
 	import type { LocaleShape } from '$lib/i18n/types';
 
@@ -9,17 +10,7 @@
 	const grouped = $derived(getToolsByCategory());
 </script>
 
-<svelte:head>
-	<title>{t().seo.homeTitle}</title>
-	<meta name="description" content={t().seo.homeDescription} />
-	<meta property="og:title" content={t().seo.homeTitle} />
-	<meta property="og:description" content={t().seo.homeDescription} />
-	<meta property="og:url" content="https://tools.phoxia.org/" />
-	<meta property="og:type" content="website" />
-	<meta name="twitter:title" content={t().seo.homeTitle} />
-	<meta name="twitter:description" content={t().seo.homeDescription} />
-	<link rel="canonical" href="https://tools.phoxia.org/" />
-</svelte:head>
+<Seo title={t().seo.homeTitle} description={t().seo.homeDescription} path="/" />
 
 <main id="main-content" class="home-main">
 	<header class="home-header">
