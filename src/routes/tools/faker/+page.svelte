@@ -180,17 +180,18 @@
     </div>
 
     <!-- Field pills -->
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+    <div style="display: flex; flex-wrap: wrap; gap: 0.7rem;">
       {#each availableFields as f (f)}
         <button
           onclick={() => toggleField(f)}
           style="
-						padding: 0.25rem 0.625rem; border-radius: 99px; font-size: 0.78rem; cursor: pointer;
+						padding: 0.4rem 0.9rem; border-radius: 99px; font-size: 0.82rem; cursor: pointer;
 						border: 1px solid {activeFields.has(f) ? 'var(--color-accent)' : 'var(--color-border)'};
 						background: {activeFields.has(f)
             ? 'color-mix(in srgb, var(--color-accent) 12%, transparent)'
             : 'transparent'};
 						color: {activeFields.has(f) ? 'var(--color-accent)' : 'var(--color-text-muted)'};
+						transition: border-color 0.15s, background 0.15s;
 					"
         >
           {fieldLabel(f)}
@@ -208,7 +209,7 @@
             <tr style="background: color-mix(in srgb, var(--color-surface) 50%, transparent);">
               {#each visibleFields as f (f)}
                 <th
-                  style="padding: 0.5rem 0.875rem; text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-faint); white-space: nowrap; border-bottom: 1px solid var(--color-border);"
+                  style="padding: 0.65rem 1.125rem; text-align: left; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-faint); white-space: nowrap; border-bottom: 1px solid var(--color-border);"
                 >
                   {fieldLabel(f)}
                 </th>
@@ -220,7 +221,7 @@
               <tr style="border-top: {i > 0 ? '1px solid var(--color-border)' : 'none'};">
                 {#each visibleFields as f (f)}
                   <td
-                    style="padding: 0.5rem 0.875rem; color: var(--color-text); font-family: {selectedCountry
+                    style="padding: 0.65rem 1.125rem; color: var(--color-text); font-family: {selectedCountry
                       .docs[f]?.mono
                       ? 'var(--font-mono)'
                       : 'inherit'}; white-space: nowrap;"
