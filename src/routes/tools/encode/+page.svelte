@@ -7,6 +7,7 @@
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
   import { COPY_DETECT_PREFILL_KEY } from "$lib/copyDetect";
+  import { chipStyle } from "$lib/chipStyle";
   import {
     encodeBase64,
     decodeBase64,
@@ -131,13 +132,6 @@
     if (ok) setTimeout(() => (copiedId = ""), 1500);
   }
 
-  const tabStyle = (id: EncodeMode) =>
-    `padding: 0.375rem 0.625rem; font-size: 0.75rem; border-radius: var(--radius); cursor: pointer; white-space: nowrap;
-		border: 1px solid ${activeTab === id ? "var(--color-accent)" : "var(--color-border)"};
-		background: ${activeTab === id ? "color-mix(in srgb, var(--color-accent) 10%, transparent)" : "transparent"};
-		color: ${activeTab === id ? "var(--color-accent)" : "var(--color-text-muted)"};
-		font-weight: ${activeTab === id ? 600 : 400};`;
-
   const textareaStyle =
     "width: 100%; min-height: 140px; resize: vertical; font-family: var(--font-mono); font-size: 0.85rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); padding: 0.75rem; box-sizing: border-box;";
 </script>
@@ -152,7 +146,7 @@
             activeTab = tab.id;
             clear();
           }}
-          style={tabStyle(tab.id)}
+          style={chipStyle(activeTab === tab.id)}
         >
           {tab.label}
         </button>

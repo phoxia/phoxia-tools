@@ -8,6 +8,7 @@
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { chipStyle } from "$lib/chipStyle";
   import { generateRecord, getFields, isCommonField, findCountryForDoc } from "./logic";
   import { countryList, getCountry } from "$lib/faker/countries";
 
@@ -180,20 +181,9 @@
     </div>
 
     <!-- Field pills -->
-    <div style="display: flex; flex-wrap: wrap; gap: 0.7rem;">
+    <div style="display: flex; flex-wrap: wrap; gap: 0.375rem;">
       {#each availableFields as f (f)}
-        <button
-          onclick={() => toggleField(f)}
-          style="
-						padding: 0.4rem 0.9rem; border-radius: 99px; font-size: 0.82rem; cursor: pointer;
-						border: 1px solid {activeFields.has(f) ? 'var(--color-accent)' : 'var(--color-border)'};
-						background: {activeFields.has(f)
-            ? 'color-mix(in srgb, var(--color-accent) 12%, transparent)'
-            : 'transparent'};
-						color: {activeFields.has(f) ? 'var(--color-accent)' : 'var(--color-text-muted)'};
-						transition: border-color 0.15s, background 0.15s;
-					"
-        >
+        <button onclick={() => toggleField(f)} style={chipStyle(activeFields.has(f))}>
           {fieldLabel(f)}
         </button>
       {/each}

@@ -3,6 +3,7 @@
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { chipStyle } from "$lib/chipStyle";
   import { generateLorem } from "./logic";
   import type { LoremType } from "./logic";
 
@@ -41,18 +42,9 @@
         <div style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.375rem;">
           {t().tools.lorem.type}
         </div>
-        <div style="display: flex; gap: 0.25rem;">
+        <div style="display: flex; gap: 0.375rem;">
           {#each types as t (t.id)}
-            <button
-              onclick={() => (type = t.id)}
-              style="
-							padding: 0.25rem 0.625rem; font-size: 0.75rem; border-radius: 99px; cursor: pointer;
-							border: 1px solid {type === t.id ? 'var(--color-accent)' : 'var(--color-border)'};
-							background: {type === t.id
-                ? 'color-mix(in srgb, var(--color-accent) 12%, transparent)'
-                : 'transparent'};
-							color: {type === t.id ? 'var(--color-accent)' : 'var(--color-text-muted)'};
-						">{t.label}</button
+            <button onclick={() => (type = t.id)} style={chipStyle(type === t.id)}>{t.label}</button
             >
           {/each}
         </div>

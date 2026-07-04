@@ -4,6 +4,7 @@
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { chipStyle } from "$lib/chipStyle";
   import { pickOne, shuffle, generateNumbers, rollDice, DICE_FACES } from "./logic";
   import type { RandomMode } from "./logic";
 
@@ -95,13 +96,6 @@
     if (ok) setTimeout(() => (copiedId = ""), 1500);
   }
 
-  const tabStyle = (id: RandomMode) =>
-    `padding: 0.375rem 0.625rem; font-size: 0.75rem; border-radius: var(--radius); cursor: pointer; white-space: nowrap;
-		border: 1px solid ${activeTab === id ? "var(--color-accent)" : "var(--color-border)"};
-		background: ${activeTab === id ? "color-mix(in srgb, var(--color-accent) 10%, transparent)" : "transparent"};
-		color: ${activeTab === id ? "var(--color-accent)" : "var(--color-text-muted)"};
-		font-weight: ${activeTab === id ? 600 : 400};`;
-
   const inputStyle =
     "width: 100%; padding: 0.5rem 0.75rem; box-sizing: border-box; font-family: var(--font-mono); font-size: 0.875rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text);";
 
@@ -122,7 +116,7 @@
             activeTab = tab.id;
             clearTab();
           }}
-          style={tabStyle(tab.id)}>{tab.label}</button
+          style={chipStyle(activeTab === tab.id)}>{tab.label}</button
         >
       {/each}
     </div>

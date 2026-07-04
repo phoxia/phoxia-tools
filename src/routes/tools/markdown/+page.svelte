@@ -3,6 +3,7 @@
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { chipStyle } from "$lib/chipStyle";
   import { renderMd } from "./logic";
 
   let source = $state(t().tools.markdown.example);
@@ -35,14 +36,8 @@
         {#each ["split", "preview"] as const as v (v)}
           <button
             onclick={() => (view = v)}
-            style="
-							padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.78rem; cursor: pointer; text-transform: capitalize;
-							border: 1px solid {view === v ? 'var(--color-accent)' : 'var(--color-border)'};
-							background: {view === v
-              ? 'color-mix(in srgb, var(--color-accent) 12%, transparent)'
-              : 'transparent'};
-							color: {view === v ? 'var(--color-accent)' : 'var(--color-text-muted)'};
-						">{views[v]}</button
+            style={chipStyle(view === v, { extra: "text-transform: capitalize;" })}
+            >{views[v]}</button
           >
         {/each}
       </div>

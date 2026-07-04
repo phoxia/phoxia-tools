@@ -3,6 +3,7 @@
   import { t } from "$lib/i18n/i18n.svelte";
   import { copyToClipboard } from "$lib/clipboard.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { chipStyle } from "$lib/chipStyle";
   import {
     toCase,
     toSlug,
@@ -92,14 +93,6 @@
     if (ok) setTimeout(() => (copiedId = ""), 1500);
   }
 
-  // Style helpers
-  const tabStyle = (id: TextMode) =>
-    `padding: 0.375rem 0.625rem; font-size: 0.75rem; border-radius: var(--radius); cursor: pointer; white-space: nowrap;
-		border: 1px solid ${activeTab === id ? "var(--color-accent)" : "var(--color-border)"};
-		background: ${activeTab === id ? "color-mix(in srgb, var(--color-accent) 10%, transparent)" : "transparent"};
-		color: ${activeTab === id ? "var(--color-accent)" : "var(--color-text-muted)"};
-		font-weight: ${activeTab === id ? 600 : 400};`;
-
   const inputStyle =
     "width: 100%; font-size: 0.875rem; font-family: var(--font-mono); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); padding: 0.5rem 0.75rem; box-sizing: border-box;";
 
@@ -112,7 +105,7 @@
     <!-- Tabs -->
     <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
       {#each tabs as tab (tab.id)}
-        <button onclick={() => (activeTab = tab.id)} style={tabStyle(tab.id)}>
+        <button onclick={() => (activeTab = tab.id)} style={chipStyle(activeTab === tab.id)}>
           {tab.icon}
           {t().tools.text.tabs[tab.id]}
         </button>
@@ -181,14 +174,7 @@
         {#each ["-", "_"] as sep (sep)}
           <button
             onclick={() => (slugSeparator = sep as "-" | "_")}
-            style="
-						padding: 0.25rem 0.75rem; border-radius: 99px; font-family: var(--font-mono); font-size: 0.8rem; cursor: pointer;
-						border: 1px solid {slugSeparator === sep ? 'var(--color-accent)' : 'var(--color-border)'};
-						background: {slugSeparator === sep
-              ? 'color-mix(in srgb, var(--color-accent) 12%, transparent)'
-              : 'transparent'};
-						color: {slugSeparator === sep ? 'var(--color-accent)' : 'var(--color-text-muted)'};
-					">{sep}</button
+            style={chipStyle(slugSeparator === sep, { mono: true })}>{sep}</button
           >
         {/each}
       </div>

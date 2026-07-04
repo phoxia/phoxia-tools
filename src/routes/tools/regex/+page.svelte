@@ -3,6 +3,7 @@
   import ToolLayout from "$lib/components/ToolLayout.svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { trackToolUsed } from "$lib/analytics/analytics";
+  import { chipStyle } from "$lib/chipStyle";
 
   let pattern = $state("\\b\\w+@\\w+\\.\\w+\\b");
   const flags = new SvelteSet(["g", "i"]);
@@ -122,14 +123,7 @@
         <button
           onclick={() => toggleFlag(f)}
           title={FLAG_DESC[f]}
-          style="
-						padding: 0.2rem 0.625rem; border-radius: 99px; font-family: var(--font-mono); font-size: 0.8rem; cursor: pointer;
-						border: 1px solid {flags.has(f) ? 'var(--color-accent)' : 'var(--color-border)'};
-						background: {flags.has(f)
-            ? 'color-mix(in srgb, var(--color-accent) 12%, transparent)'
-            : 'transparent'};
-						color: {flags.has(f) ? 'var(--color-accent)' : 'var(--color-text-muted)'};
-					">{f}</button
+          style={chipStyle(flags.has(f), { mono: true })}>{f}</button
         >
       {/each}
     </div>
