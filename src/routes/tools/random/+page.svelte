@@ -196,7 +196,7 @@
 
     <!-- === NUMBERS === -->
     {#if activeTab === "numbers"}
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: flex-end;">
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: flex-start;">
         <NumberField
           id="random-min"
           bind:value={numMin}
@@ -205,8 +205,6 @@
           max={1_000_000}
           width="80px"
           status="info"
-          hint={t().tools.random.rangeHint.replace("{min}", "-1000000").replace("{max}", "1000000")}
-          showMascot
         />
         <NumberField
           id="random-max"
@@ -216,8 +214,6 @@
           max={1_000_000}
           width="80px"
           status="info"
-          hint={t().tools.random.rangeHint.replace("{min}", "-1000000").replace("{max}", "1000000")}
-          showMascot
         />
         <NumberField
           id="random-count"
@@ -227,8 +223,6 @@
           max={1000}
           width="80px"
           status="info"
-          hint={t().tools.random.rangeHint.replace("{min}", "1").replace("{max}", "1000")}
-          showMascot
         />
         <label
           style="display: flex; align-items: center; gap: 0.375rem; font-size: 0.8rem; color: var(--color-text-muted); cursor: pointer; padding-bottom: 0.5rem;"
@@ -252,7 +246,7 @@
 
     <!-- === DICE === -->
     {#if activeTab === "dice"}
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: flex-end;">
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: flex-start;">
         <label
           style="display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; color: var(--color-text-muted);"
           >{t().tools.random.diceFaces}
@@ -270,8 +264,6 @@
           max={100}
           width="80px"
           status="info"
-          hint={t().tools.random.rangeHint.replace("{min}", "1").replace("{max}", "100")}
-          showMascot
         />
       </div>
       <button onclick={diceRun} style={btnPrimary}>{t().tools.random.roll}</button>
