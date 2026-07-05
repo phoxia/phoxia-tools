@@ -1,11 +1,11 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { resolve } from "$app/paths";
-  import { onMount } from "svelte";
   import { t } from "$lib/i18n/i18n.svelte";
   import { getToolsByCategory } from "$lib/tools/registry";
   import { sidebarState } from "$lib/sidebar.svelte";
   import Seo from "$lib/components/Seo.svelte";
+  import AdSlot from "$lib/components/AdSlot.svelte";
   import type { Category } from "$lib/tools/registry";
   import type { LocaleShape } from "$lib/i18n/types";
 
@@ -48,15 +48,6 @@
   const categories: Category[] = ["dev", "text", "reference"];
   const grouped = $derived(getToolsByCategory());
   const currentPath = $derived(page.url.pathname);
-
-  onMount(() => {
-    try {
-      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-      (window as any).adsbygoogle.push({});
-    } catch {
-      // AdSense script not loaded: noop
-    }
-  });
 </script>
 
 <Seo title="{t().seo.siteName} • {title}" {description} path={route ?? `/tools/${toolId}`} />
@@ -120,15 +111,8 @@
     {@render children()}
 
     <!-- Ad slot: below output. Desktop only, height reserved to prevent CLS -->
-    <div class="below-output-ad" aria-hidden="true">
-      <ins
-        class="adsbygoogle"
-        style="display:block;width:100%;min-height:90px;"
-        data-ad-client="ca-pub-7052672921293029"
-        data-ad-slot="9966832386"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
+    <div class="below-output-ad">
+      <AdSlot slot="2649120731" />
     </div>
   </main>
 </div>

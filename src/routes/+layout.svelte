@@ -7,6 +7,7 @@
   import CopyDetectTooltip from "$lib/components/CopyDetectTooltip.svelte";
   import ClipboardConsentPrompt from "$lib/components/ClipboardConsentPrompt.svelte";
   import ClipboardWatcher from "$lib/components/ClipboardWatcher.svelte";
+  import AdSlot from "$lib/components/AdSlot.svelte";
   import { initTheme } from "$lib/theme/theme.svelte";
   import { initClientLang } from "$lib/i18n/i18n.svelte";
   import {
@@ -68,7 +69,7 @@
     if (hasAdvertisingConsent()) {
       const adsScript = document.createElement("script");
       adsScript.src =
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7052672921293029";
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7289452505616948";
       adsScript.async = true;
       adsScript.crossOrigin = "anonymous";
       container.appendChild(adsScript);
@@ -136,7 +137,7 @@
       const adsScript = document.createElement("script");
       adsScript.id = "phoxia-ads";
       adsScript.src =
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7052672921293029";
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7289452505616948";
       adsScript.async = true;
       adsScript.crossOrigin = "anonymous";
       document.head.appendChild(adsScript);
@@ -184,31 +185,10 @@
   </main>
 
   <!-- Footer ads: responsive grid: 3 cols desktop, 2 tablet, 1 mobile -->
-  <div aria-hidden="true" class="footer-ad">
-    <ins
-      class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-7052672921293029"
-      data-ad-slot="4438107876"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    ></ins>
-    <ins
-      class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-7052672921293029"
-      data-ad-slot="7974862354"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    ></ins>
-    <ins
-      class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-7052672921293029"
-      data-ad-slot="5733475305"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    ></ins>
+  <div class="footer-ad">
+    <AdSlot slot="5201920430" />
+    <AdSlot slot="1336039067" />
+    <AdSlot slot="9513911981" />
   </div>
 
   <div
