@@ -1,5 +1,6 @@
 <script lang="ts">
-  type LuxState =
+  import { luxExpressionUrl, type LuxExpression } from "@phoxia/lux";
+  type LuxState = Extract<LuxExpression,
     | "sleeping"
     | "active"
     | "happy"
@@ -9,7 +10,7 @@
     | "error"
     | "angry"
     | "embarrassed"
-    | "celebration";
+    | "celebration">;
 
   let {
     state = "happy",
@@ -31,7 +32,7 @@
   aria-hidden="true"
 >
   <img
-    src="/lux/lux-{state}.svg"
+    src={luxExpressionUrl(state).href}
     alt={label}
     width={size}
     height={size}

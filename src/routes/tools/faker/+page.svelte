@@ -25,7 +25,7 @@
   let selectedCountry = $state(initialCountry);
   let count = $state(5);
   let activeFields = $state(
-    fieldParam && getFields(selectedCountry).includes(fieldParam)
+    fieldParam && getFields(initialCountry).includes(fieldParam)
       ? new SvelteSet<string>([fieldParam])
       : new SvelteSet<string>(["name", "email", "phone", "postalCode", "state", "city"])
   );

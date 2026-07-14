@@ -14,7 +14,8 @@
     "lint": "prettier --check --write . && eslint src --fix",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "validate:lux": "node scripts/validate-lux.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -43,6 +44,7 @@
     "@fontsource-variable/geist": "^5.2.9",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
+    "@phoxia/lux": "0.1.1",
     "lucide-svelte": "^1.0.1"
   }
 }

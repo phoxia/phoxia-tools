@@ -18,6 +18,7 @@
   } from "$lib/consent/consent.svelte";
   import { initClipboardConsent } from "$lib/consent/clipboardConsent.svelte";
   import { getAnnouncement, clearAnnouncement } from "$lib/announce.svelte";
+  import { phoxiaManifest } from "@phoxia/lux";
 
   let { children } = $props();
 
@@ -146,6 +147,9 @@
 </script>
 
 <svelte:head>
+  <link rel="icon" href={phoxiaManifest.favicon.href} />
+  <link rel="manifest" href={phoxiaManifest.manifest.href} />
+  <link rel="apple-touch-icon" href={phoxiaManifest.appleTouchIcon.href} />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
